@@ -193,25 +193,24 @@
 </section>
 
   
-  <!-- === FINAL SOTA BOOKING BAR (Per-Day Pricing + Clean Layout) === -->
-<section class="py-8 bg-white shadow-xl sticky top-0 z-40 border-b">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="bg-white rounded-3xl shadow-2xl p-6">
+  <!-- === FINAL CLEAN BOOKING BAR (Mobile-First + Readable Dates) === -->
+<section class="py-6 bg-white shadow-xl sticky top-0 z-40 border-b">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="bg-white rounded-3xl shadow-2xl p-5 md:p-6">
 
-      <!-- First Row -->
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
         <!-- Check-in -->
         <div>
           <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-IN</label>
           <input type="date" id="checkin" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
-          <div id="checkinLabel" class="text-xs text-gray-400 mt-1 text-center"></div>
+          <div id="checkinLabel" class="text-xs text-center text-amber-600 font-medium mt-1"></div>
         </div>
 
         <!-- Check-out -->
         <div>
           <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-OUT</label>
           <input type="date" id="checkout" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
-          <div id="checkoutLabel" class="text-xs text-gray-400 mt-1 text-center"></div>
+          <div id="checkoutLabel" class="text-xs text-center text-amber-600 font-medium mt-1"></div>
         </div>
 
         <!-- Room Type -->
@@ -241,9 +240,8 @@
         </div>
       </div>
 
-      <!-- Second Row - Add-ons + Price -->
-      <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
-        <!-- Add-ons -->
+      <!-- Add-ons + Price + Button -->
+      <div class="mt-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
         <div class="flex-1">
           <label class="text-xs font-semibold text-gray-500 block mb-3">ADD-ONS</label>
           <div class="flex flex-wrap gap-x-8 gap-y-3">
@@ -258,13 +256,11 @@
           </div>
         </div>
 
-        <!-- Live Price -->
         <div class="flex-1 text-center md:text-right">
           <div id="priceDisplay" class="text-3xl font-bold text-primary-600">Select dates</div>
           <div id="totalDisplay" class="text-sm text-gray-600 mt-1"></div>
         </div>
 
-        <!-- WhatsApp Button -->
         <button onclick="handleWhatsAppBooking()" 
                 class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3 transition-all whitespace-nowrap">
           <i class="fa-brands fa-whatsapp text-3xl"></i>
@@ -274,7 +270,6 @@
     </div>
   </div>
 </section>
-
     
   <!-- WHY GUESTS LOVE US -->
   <section class="py-16 bg-primary-50">
@@ -650,7 +645,13 @@ function formatDateForSheet(dateStr) {
   return `${d}-${m}-${y}`;
 }
 
-// Get price for one specific date
+function formatReadableDate(dateStr) {
+  if (!dateStr) return "";
+  const [y, m, d] = dateStr.split('-');
+  const date = new Date(y, m-1, d);
+  return date.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+
 function getDailyPrice(dateStr, roomType) {
   const formatted = formatDateForSheet(dateStr);
   const row = pricingData.find(r => r.date === formatted);
@@ -658,24 +659,21 @@ function getDailyPrice(dateStr, roomType) {
   return roomType === "Standard" ? row.standard : roomType === "Deluxe" ? row.deluxe : row.family;
 }
 
-// Calculate total by summing every single day
 function calculateTotal(checkinStr, checkoutStr, roomType) {
-  const checkin = new Date(checkinStr);
-  const checkout = new Date(checkoutStr);
+  const start = new Date(checkinStr);
+  const end = new Date(checkoutStr);
   let total = 0;
   let nights = 0;
+  let current = new Date(start);
 
-  let current = new Date(checkin);
-  while (current < checkout) {
-    const daily = getDailyPrice(current.toISOString().split('T')[0], roomType);
-    total += daily;
+  while (current < end) {
+    total += getDailyPrice(current.toISOString().split('T')[0], roomType);
     nights++;
     current.setDate(current.getDate() + 1);
   }
   return { total, nights };
 }
 
-// Dynamic adults dropdown
 function updateAdultsDropdown() {
   const roomType = document.getElementById('roomType').value;
   const max = (roomType === "Family") ? 5 : 3;
@@ -694,10 +692,9 @@ function updatePriceDisplay() {
   const checkin = document.getElementById('checkin').value;
   const checkout = document.getElementById('checkout').value;
   const roomType = document.getElementById('roomType').value;
-  const adults = parseInt(document.getElementById('adults').value) || 0;
-  const children = parseInt(document.getElementById('children').value) || 0;
-  const breakfast = document.getElementById('breakfast').checked;
-  const extrabed = document.getElementById('extrabed').checked;
+
+  document.getElementById('checkinLabel').textContent = checkin ? formatReadableDate(checkin) : "";
+  document.getElementById('checkoutLabel').textContent = checkout ? formatReadableDate(checkout) : "";
 
   const priceDisplay = document.getElementById('priceDisplay');
   const totalDisplay = document.getElementById('totalDisplay');
@@ -711,10 +708,15 @@ function updatePriceDisplay() {
   const result = calculateTotal(checkin, checkout, roomType);
   let total = result.total;
 
+  const breakfast = document.getElementById('breakfast').checked;
+  const extrabed = document.getElementById('extrabed').checked;
+  const adults = parseInt(document.getElementById('adults').value) || 0;
+  const children = parseInt(document.getElementById('children').value) || 0;
+
   if (breakfast) total += 200 * (adults + children);
   if (extrabed) total += 400;
 
-  priceDisplay.innerHTML = `₹${result.total / result.nights} <span class="text-base font-normal">/ night</span>`;
+  priceDisplay.innerHTML = `₹${Math.round(result.total / result.nights)} <span class="text-base font-normal">/ night</span>`;
   totalDisplay.innerHTML = `Total for <strong>${result.nights}</strong> nights + add-ons: <strong>₹${total}</strong>`;
 }
 
