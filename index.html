@@ -84,6 +84,13 @@
   background-size: cover;
   background-position: center;
 }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-up { animation: fadeUp 1s ease forwards; }
+.animate-fade-up-delay { animation: fadeUp 1s 0.3s ease forwards; }
+.animate-fade-up-delay-2 { animation: fadeUp 1s 0.6s ease forwards; }
+.animate-fade-up-delay-3 { animation: fadeUp 1s 0.9s ease forwards; }
+.animate-bounce-slow { animation: bounce 3s infinite; }
     
     </style>
 </head>
@@ -108,67 +115,59 @@
     </div>
   </nav>
 
-  <!-- TITLE CARD (now with entrance animation) -->
-<div class="title-card py-12 text-center relative overflow-hidden">
-  <div class="max-w-5xl mx-auto px-6">
-    <h1 class="text-7xl md:text-8xl font-bold text-white tracking-[0.15em] animate-title-pop">RAMMA</h1>
-    <h2 class="text-5xl md:text-6xl font-semibold text-white tracking-[0.25em] -mt-4 animate-title-pop-delay">THEHOTEL</h2>
-    
-    <div class="flex items-center justify-center gap-6 mt-8 mb-4">
-      <div class="h-px w-24 bg-white/70"></div>
-      <span class="text-white text-4xl animate-pulse">✦</span>
-      <div class="h-px w-24 bg-white/70"></div>
-    </div>
-    
-    <p class="text-4xl font-medium text-white tracking-[8px] animate-fade-in">MOUNT ABU</p>
-    
-    <!-- Subtle location badge -->
-    <div class="inline-flex mt-6 items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-3xl text-white text-sm font-medium">
-      <span class="text-amber-300">200m from Nakki Lake</span>
-    </div>
-  </div>
-</div>
-
- <!-- HERO - Now cinematic with Ken-Burns + animations -->
-<section class="hero-bg h-screen flex items-center text-white relative">
-  <!-- Ken-Burns slow zoom effect -->
-  <div class="absolute inset-0 bg-[url('https://i.ibb.co/0p3z3PH2/Perspective-View-Raama-The-Hotel-6.jpg')] bg-cover bg-center animate-kenburns"></div>
+  <!-- SOTA HERO - Single clean section, zero overlap, mobile-perfect -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background photo (your dark hotel shot style) - no aggressive zoom -->
+  <div class="absolute inset-0 bg-[url('https://i.ibb.co/0p3z3PH2/Perspective-View-Raama-The-Hotel-6.jpg')] bg-cover bg-center"></div>
   
-  <!-- Stronger overlay for depth -->
-  <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/75"></div>
+  <!-- Soft dark overlay for perfect text readability -->
+  <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black/80"></div>
 
-  <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-6 py-2 rounded-full mb-8 animate-fade-in">
-      <i class="fa-solid fa-map-marker-alt"></i>
-      <span class="font-semibold">200 meters from Nakki Lake • Mount Abu</span>
+  <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+    <!-- Brand lockup - exactly like your screenshot -->
+    <h1 class="text-7xl md:text-8xl font-bold text-white tracking-[0.12em] leading-none mb-2 animate-fade-up">
+      RAMMA
+    </h1>
+    <h2 class="text-6xl md:text-7xl font-semibold text-white tracking-widest -mt-4 mb-8 animate-fade-up-delay">
+      THEHOTEL
+    </h2>
+
+    <!-- Diamond separator -->
+    <div class="flex items-center justify-center gap-8 mb-8">
+      <div class="h-px w-20 bg-white/70"></div>
+      <span class="text-amber-300 text-5xl">✦</span>
+      <div class="h-px w-20 bg-white/70"></div>
     </div>
 
-    <h2 class="text-6xl md:text-7xl font-bold leading-tight mb-6 animate-fade-in-delay">
-      Your Perfect Peaceful<br>Hill Station Sanctuary
-    </h2>
-    
-    <p class="text-2xl md:text-3xl mb-10 text-white/90 animate-fade-in-delay-2">
-      Rooftop sunrise • Polo ground view • Pure Veg • Calm vibes only
-    </p>
+    <p class="text-4xl font-medium text-white tracking-[6px] mb-6 animate-fade-up-delay-2">MOUNT ABU</p>
 
-    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+    <!-- Location pill (exactly like your screenshot) -->
+    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-8 py-3 rounded-3xl text-white text-lg font-medium mb-12">
+      <i class="fa-solid fa-map-marker-alt"></i>
+      200 meters from Nakki Lake
+    </div>
+
+    <!-- Emotional tagline -->
+    <h3 class="text-3xl md:text-4xl font-light text-white/95 max-w-2xl mx-auto leading-tight animate-fade-up-delay-3">
+      Your Perfect Peaceful<br>Hill Station Sanctuary
+    </h3>
+
+    <!-- CTA buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12">
       <a href="https://wa.me/919460500789" target="_blank"
-         class="bg-white text-primary-800 px-10 py-6 rounded-3xl text-2xl font-bold flex items-center justify-center gap-3 hover:scale-105 transition-all duration-300 shadow-2xl">
+         class="bg-white text-primary-800 px-12 py-6 rounded-3xl text-2xl font-bold flex items-center justify-center gap-3 hover:scale-105 transition-all duration-300">
         <i class="fa-brands fa-whatsapp text-4xl"></i>
         Book on WhatsApp Now
       </a>
-      
       <a href="#rooms" 
-         class="border-2 border-white px-10 py-6 rounded-3xl text-2xl font-bold hover:bg-white/10 transition-all duration-300">
-        Explore All 10 Rooms →
+         class="border-2 border-white text-white px-12 py-6 rounded-3xl text-2xl font-bold hover:bg-white/10 transition-all duration-300">
+        See All 10 Rooms →
       </a>
     </div>
 
-    <p class="mt-12 text-sm opacity-75">Call/WhatsApp: 9460500789 • thehotelmountabu@gmail.com</p>
+    <!-- Scroll arrow - gentle bounce -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-white text-6xl animate-bounce-slow cursor-pointer">↓</div>
   </div>
-
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-12 left-1/2 -translate-x-1/2 text-white text-5xl animate-bounce">↓</div>
 </section>
 
   <!-- WHY GUESTS LOVE US -->
