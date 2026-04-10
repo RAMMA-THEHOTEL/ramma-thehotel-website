@@ -543,42 +543,43 @@
     console.log('%c✅ Ramma TheHotel — Upgraded for Solo Backpackers LIVE!', 'color: #FF6200; font-size: 18px');
   </script>
   <script>
-  // ==================== CENTRALIZED PRICING (3 CATEGORIES ONLY) ====================
-  // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
-  // ONLY CHANGE THESE 3 NUMBERS IN FUTURE
+  // ==================== CENTRALIZED PRICING - 3 CATEGORIES ONLY ====================
+  // ONLY CHANGE THESE 3 NUMBERS FROM NOW ON
   const categoryPrices = {
-    standard: 1250,   // Standard Non-AC
-    deluxe:   1550,   // Deluxe AC
-    family:   2250    // Family Room (4 persons) AC
+    standard: 1200,   // All Standard Non-AC rooms
+    deluxe:   1500,   // All Deluxe AC rooms
+    family:   2200    // All Family Room (4 persons) AC
   };
-  // ============================================================================
+  // ==============================================================================
 
   function updateAllPrices() {
     document.querySelectorAll('.room-card').forEach(card => {
       const heading = card.querySelector('h3');
       if (!heading) return;
 
-      const text = heading.textContent.trim();
+      const roomText = heading.textContent.trim();
 
       let price = 0;
-      if (text.includes("Standard Non-AC") || text.includes("Standard Non AC")) {
+      if (roomText.includes("Standard Non-AC") || roomText.includes("Standard Non AC")) {
         price = categoryPrices.standard;
-      } else if (text.includes("Deluxe AC")) {
+      } else if (roomText.includes("Deluxe AC")) {
         price = categoryPrices.deluxe;
-      } else if (text.includes("Family Room") || text.includes("Family")) {
+      } else if (roomText.includes("Family Room") || roomText.includes("Family")) {
         price = categoryPrices.family;
       }
 
       if (price > 0) {
-        const priceElement = card.querySelector('p.text-primary-600.text-3xl');
-        if (priceElement) {
-          priceElement.innerHTML = `₹${price} <span class="text-sm font-normal text-gray-500">/ night</span>`;
+        // Find ANY price paragraph inside this card (more flexible)
+        const priceEl = card.querySelector('p.text-primary-600');
+        
+        if (priceEl) {
+          priceEl.innerHTML = `₹${price} <span class="text-sm font-normal text-gray-500">/ night</span>`;
         }
       }
     });
   }
 
-  // Run automatically when page loads
+  // Run automatically
   window.addEventListener('load', updateAllPrices);
 </script>
 </body>
