@@ -58,6 +58,33 @@
     }
 
     .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+    /* NEW ANIMATIONS - SOTA TOUCH */
+@keyframes titlePop {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes kenburns {
+  0% { transform: scale(1.05); }
+  100% { transform: scale(1.15); }
+}
+.animate-title-pop { animation: titlePop 1.2s ease forwards; }
+.animate-title-pop-delay { animation: titlePop 1.2s 0.3s ease forwards; }
+.animate-fade-in { animation: fadeIn 1s ease forwards; }
+.animate-fade-in-delay { animation: fadeIn 1s 0.4s ease forwards; }
+.animate-fade-in-delay-2 { animation: fadeIn 1s 0.8s ease forwards; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-kenburns { animation: kenburns 25s ease infinite alternate; }
+
+.hero-bg {
+  background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://i.ibb.co/0p3z3PH2/Perspective-View-Raama-The-Hotel-6.jpg');
+  background-size: cover;
+  background-position: center;
+}
+    
     </style>
 </head>
 <body class="font-sans">
@@ -81,42 +108,68 @@
     </div>
   </nav>
 
-  <!-- SOTA TITLE CARD -->
-  <div class="title-card py-14 text-center">
-    <div class="max-w-5xl mx-auto px-6">
-      <h1 class="text-7xl md:text-8xl font-bold text-white tracking-widest">RAMMA</h1>
-       <h2 class="text-5xl md:text-6xl font-semibold text-white tracking-widest">THEHOTEL</h2>
-      <div class="flex items-center justify-center gap-6 mt-10 mb-4">
-        <div class="h-px w-20 bg-white"></div>
-        <span class="text-white text-4xl">✦</span>
-        <div class="h-px w-20 bg-white"></div>
-      </div>
-      <p class="text-4xl font-medium text-white tracking-[8px]">MOUNT ABU</p>
+  <!-- TITLE CARD (now with entrance animation) -->
+<div class="title-card py-12 text-center relative overflow-hidden">
+  <div class="max-w-5xl mx-auto px-6">
+    <h1 class="text-7xl md:text-8xl font-bold text-white tracking-[0.15em] animate-title-pop">RAMMA</h1>
+    <h2 class="text-5xl md:text-6xl font-semibold text-white tracking-[0.25em] -mt-4 animate-title-pop-delay">THEHOTEL</h2>
+    
+    <div class="flex items-center justify-center gap-6 mt-8 mb-4">
+      <div class="h-px w-24 bg-white/70"></div>
+      <span class="text-white text-4xl animate-pulse">✦</span>
+      <div class="h-px w-24 bg-white/70"></div>
+    </div>
+    
+    <p class="text-4xl font-medium text-white tracking-[8px] animate-fade-in">MOUNT ABU</p>
+    
+    <!-- Subtle location badge -->
+    <div class="inline-flex mt-6 items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-3xl text-white text-sm font-medium">
+      <span class="text-amber-300">200m from Nakki Lake</span>
     </div>
   </div>
+</div>
 
-  <!-- HERO -->
-  <section class="hero-bg h-screen flex items-center text-white">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-6 py-2 rounded-full mb-6">
-        <i class="fa-solid fa-map-marker-alt"></i>
-        <span class="font-semibold">200 meters from Nakki Lake</span>
-      </div>
-      <h2 class="text-6xl md:text-7xl font-bold leading-tight mb-4">Your Perfect Peaceful<br>Hill Station Stay in Mount Abu</h2>
-      <p class="text-2xl md:text-3xl mb-8">Calm vibes • Rooftop sunrise • Pure Veg • 10 unique rooms</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="https://wa.me/919460500789" target="_blank"
-           class="bg-white text-primary-800 px-10 py-5 rounded-2xl text-xl font-bold flex items-center justify-center gap-3 hover:scale-105 transition">
-          <i class="fa-brands fa-whatsapp text-3xl"></i>
-          Book on WhatsApp Now
-        </a>
-        <a href="#rooms" class="border-2 border-white px-10 py-5 rounded-2xl text-xl font-bold hover:bg-white/10 transition">
-          See Rooms
-        </a>
-      </div>
-      <p class="mt-8 text-sm opacity-80">Call / WhatsApp: 9460500789 • thehotelmountabu@gmail.com</p>
+ <!-- HERO - Now cinematic with Ken-Burns + animations -->
+<section class="hero-bg h-screen flex items-center text-white relative">
+  <!-- Ken-Burns slow zoom effect -->
+  <div class="absolute inset-0 bg-[url('https://i.ibb.co/0p3z3PH2/Perspective-View-Raama-The-Hotel-6.jpg')] bg-cover bg-center animate-kenburns"></div>
+  
+  <!-- Stronger overlay for depth -->
+  <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/75"></div>
+
+  <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-6 py-2 rounded-full mb-8 animate-fade-in">
+      <i class="fa-solid fa-map-marker-alt"></i>
+      <span class="font-semibold">200 meters from Nakki Lake • Mount Abu</span>
     </div>
-  </section>
+
+    <h2 class="text-6xl md:text-7xl font-bold leading-tight mb-6 animate-fade-in-delay">
+      Your Perfect Peaceful<br>Hill Station Sanctuary
+    </h2>
+    
+    <p class="text-2xl md:text-3xl mb-10 text-white/90 animate-fade-in-delay-2">
+      Rooftop sunrise • Polo ground view • Pure Veg • Calm vibes only
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <a href="https://wa.me/919460500789" target="_blank"
+         class="bg-white text-primary-800 px-10 py-6 rounded-3xl text-2xl font-bold flex items-center justify-center gap-3 hover:scale-105 transition-all duration-300 shadow-2xl">
+        <i class="fa-brands fa-whatsapp text-4xl"></i>
+        Book on WhatsApp Now
+      </a>
+      
+      <a href="#rooms" 
+         class="border-2 border-white px-10 py-6 rounded-3xl text-2xl font-bold hover:bg-white/10 transition-all duration-300">
+        Explore All 10 Rooms →
+      </a>
+    </div>
+
+    <p class="mt-12 text-sm opacity-75">Call/WhatsApp: 9460500789 • thehotelmountabu@gmail.com</p>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-12 left-1/2 -translate-x-1/2 text-white text-5xl animate-bounce">↓</div>
+</section>
 
   <!-- WHY GUESTS LOVE US -->
   <section class="py-16 bg-primary-50">
