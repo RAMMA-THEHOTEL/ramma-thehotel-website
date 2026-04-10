@@ -118,7 +118,7 @@
 <body class="font-sans">
   
   <!-- NAVBAR -->
-  <nav class="bg-white shadow-md sticky top-0 z-50">
+  <nav class="bg-white shadow-md">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
         <img src="https://i.ibb.co/rf2b2tbc/Ramma-The-Hotel-Logo1.jpg" alt="Ramma TheHotel" class="logo-img">
@@ -193,27 +193,22 @@
 </section>
 
   
-  <!-- === FINAL CLEAN BOOKING BAR (Mobile-First + Readable Dates) === -->
-<section class="py-6 bg-white shadow-xl sticky top-0 z-40 border-b">
-  <div class="max-w-7xl mx-auto px-4 md:px-6">
-    <div class="bg-white rounded-3xl shadow-2xl p-5 md:p-6">
-
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <!-- Check-in -->
+ <!-- === CLEAN NON-STICKY BOOKING BAR === -->
+<section class="py-10 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-8">
+      <!-- First Row -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
         <div>
           <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-IN</label>
           <input type="date" id="checkin" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
           <div id="checkinLabel" class="text-xs text-center text-amber-600 font-medium mt-1"></div>
         </div>
-
-        <!-- Check-out -->
         <div>
           <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-OUT</label>
           <input type="date" id="checkout" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
           <div id="checkoutLabel" class="text-xs text-center text-amber-600 font-medium mt-1"></div>
         </div>
-
-        <!-- Room Type -->
         <div>
           <label class="text-xs font-semibold text-gray-500 block mb-1">ROOM TYPE</label>
           <select id="roomType" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
@@ -222,14 +217,10 @@
             <option value="Family">Family Room (4 persons) AC</option>
           </select>
         </div>
-
-        <!-- Adults -->
         <div>
           <label class="text-xs font-semibold text-gray-500 block mb-1">ADULTS</label>
           <select id="adults" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5"></select>
         </div>
-
-        <!-- Children -->
         <div>
           <label class="text-xs font-semibold text-gray-500 block mb-1">CHILDREN</label>
           <select id="children" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
@@ -240,8 +231,8 @@
         </div>
       </div>
 
-      <!-- Add-ons + Price + Button -->
-      <div class="mt-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
+      <!-- Second Row -->
+      <div class="flex flex-col md:flex-row gap-6 items-start md:items-center">
         <div class="flex-1">
           <label class="text-xs font-semibold text-gray-500 block mb-3">ADD-ONS</label>
           <div class="flex flex-wrap gap-x-8 gap-y-3">
@@ -257,12 +248,12 @@
         </div>
 
         <div class="flex-1 text-center md:text-right">
-          <div id="priceDisplay" class="text-3xl font-bold text-primary-600">Select dates</div>
+          <div id="priceDisplay" class="text-3xl font-bold text-primary-600">Select dates to see price</div>
           <div id="totalDisplay" class="text-sm text-gray-600 mt-1"></div>
         </div>
 
         <button onclick="handleWhatsAppBooking()" 
-                class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3 transition-all whitespace-nowrap">
+                class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3 transition-all">
           <i class="fa-brands fa-whatsapp text-3xl"></i>
           Check Availability
         </button>
