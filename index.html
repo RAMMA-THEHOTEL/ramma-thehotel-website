@@ -193,83 +193,76 @@
 </section>
 
   
-   <!-- === SOTA BOOKING BAR with Guests & Add-ons === -->
+   <!-- === IMPROVED SOTA BOOKING BAR (Dynamic Guests + Better Spacing) === -->
 <section class="py-8 bg-white shadow-xl sticky top-0 z-40 border-b">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="bg-white rounded-3xl shadow-2xl p-5 md:p-6 flex flex-col md:flex-row items-center gap-4 md:gap-6">
+    <div class="bg-white rounded-3xl shadow-2xl p-6">
 
-      <!-- Check-in -->
-      <div class="flex-1 min-w-0">
-        <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-IN</label>
-        <input type="date" id="checkin" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
-      </div>
-
-      <!-- Check-out -->
-      <div class="flex-1 min-w-0">
-        <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-OUT</label>
-        <input type="date" id="checkout" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
-      </div>
-
-      <!-- Room Type -->
-      <div class="flex-1 min-w-0">
-        <label class="text-xs font-semibold text-gray-500 block mb-1">ROOM TYPE</label>
-        <select id="roomType" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
-          <option value="Standard">Standard Non-AC</option>
-          <option value="Deluxe">Deluxe AC</option>
-          <option value="Family">Family Room (4 persons) AC</option>
-        </select>
-      </div>
-
-      <!-- Guests -->
-      <div class="flex-1 min-w-0">
-        <label class="text-xs font-semibold text-gray-500 block mb-1">GUESTS</label>
-        <div class="flex gap-3">
-          <div class="flex-1">
-            <select id="adults" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
-              <option value="1">1 Adult</option>
-              <option value="2" selected>2 Adults</option>
-              <option value="3">3 Adults</option>
-              <option value="4">4 Adults</option>
-            </select>
-          </div>
-          <div class="flex-1">
-            <select id="children" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
-              <option value="0" selected>0 Kids</option>
+      <!-- First Row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <!-- Check-in -->
+        <div>
+          <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-IN</label>
+          <input type="date" id="checkin" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+        </div>
+        <!-- Check-out -->
+        <div>
+          <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-OUT</label>
+          <input type="date" id="checkout" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+        </div>
+        <!-- Room Type -->
+        <div>
+          <label class="text-xs font-semibold text-gray-500 block mb-1">ROOM TYPE</label>
+          <select id="roomType" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+            <option value="Standard">Standard Non-AC</option>
+            <option value="Deluxe">Deluxe AC</option>
+            <option value="Family">Family Room (4 persons) AC</option>
+          </select>
+        </div>
+        <!-- Guests -->
+        <div>
+          <label class="text-xs font-semibold text-gray-500 block mb-1">GUESTS</label>
+          <div class="flex gap-3">
+            <select id="adults" class="flex-1 text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5"></select>
+            <select id="children" class="flex-1 text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+              <option value="0">0 Kids</option>
               <option value="1">1 Kid</option>
               <option value="2">2 Kids</option>
-              <option value="3">3 Kids</option>
             </select>
           </div>
         </div>
       </div>
 
-      <!-- Add-ons -->
-      <div class="flex-1 md:flex-none">
-        <label class="text-xs font-semibold text-gray-500 block mb-2">ADD-ONS</label>
-        <div class="space-y-2">
-          <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" id="breakfast" class="w-5 h-5 accent-primary-600">
-            <span class="text-sm">Breakfast Package (₹200/person)</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" id="extrabed" class="w-5 h-5 accent-primary-600">
-            <span class="text-sm">Extra Bed (₹400)</span>
-          </label>
+      <!-- Second Row - Add-ons + Price -->
+      <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+        <!-- Add-ons -->
+        <div class="flex-1">
+          <label class="text-xs font-semibold text-gray-500 block mb-3">ADD-ONS</label>
+          <div class="flex flex-wrap gap-x-8 gap-y-3">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="breakfast" class="w-5 h-5 accent-primary-600">
+              <span class="text-sm">Breakfast Package (₹200/person)</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="extrabed" class="w-5 h-5 accent-primary-600">
+              <span class="text-sm">Extra Bed (₹400)</span>
+            </label>
+          </div>
         </div>
-      </div>
 
-      <!-- Price Display -->
-      <div class="flex-1 text-center md:text-right">
-        <div id="priceDisplay" class="text-3xl font-bold text-primary-600">Select dates</div>
-        <div id="totalDisplay" class="text-sm text-gray-600"></div>
-      </div>
+        <!-- Live Price -->
+        <div class="flex-1 text-center md:text-right">
+          <div id="priceDisplay" class="text-3xl font-bold text-primary-600">Select dates</div>
+          <div id="totalDisplay" class="text-sm text-gray-600 mt-1"></div>
+        </div>
 
-      <!-- WhatsApp Button -->
-      <button onclick="handleWhatsAppBooking()" 
-              class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3 transition-all whitespace-nowrap">
-        <i class="fa-brands fa-whatsapp text-3xl"></i>
-        Check Availability
-      </button>
+        <!-- WhatsApp Button -->
+        <button onclick="handleWhatsAppBooking()" 
+                class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3 transition-all">
+          <i class="fa-brands fa-whatsapp text-3xl"></i>
+          Check Availability
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -653,16 +646,31 @@ function getDailyPrice(dateStr, roomType) {
   const formatted = formatDateForSheet(dateStr);
   const row = pricingData.find(r => r.date === formatted);
   if (!row) return 1200;
-  return roomType === "Standard" ? row.standard :
-         roomType === "Deluxe" ? row.deluxe : row.family;
+  return roomType === "Standard" ? row.standard : roomType === "Deluxe" ? row.deluxe : row.family;
+}
+
+// Dynamic Adults dropdown
+function updateAdultsDropdown() {
+  const roomType = document.getElementById('roomType').value;
+  const adultsSelect = document.getElementById('adults');
+  const maxAdults = (roomType === "Family") ? 5 : 3;
+
+  adultsSelect.innerHTML = '';
+  for (let i = 1; i <= maxAdults; i++) {
+    const option = document.createElement('option');
+    option.value = i;
+    option.textContent = i + (i === 1 ? " Adult" : " Adults");
+    if (i === 2) option.selected = true;
+    adultsSelect.appendChild(option);
+  }
 }
 
 function updatePriceDisplay() {
   const checkin = document.getElementById('checkin').value;
   const checkout = document.getElementById('checkout').value;
   const roomType = document.getElementById('roomType').value;
-  const adults = parseInt(document.getElementById('adults').value);
-  const children = parseInt(document.getElementById('children').value);
+  const adults = parseInt(document.getElementById('adults').value) || 0;
+  const children = parseInt(document.getElementById('children').value) || 0;
   const breakfast = document.getElementById('breakfast').checked;
   const extrabed = document.getElementById('extrabed').checked;
 
@@ -685,7 +693,6 @@ function updatePriceDisplay() {
   const daily = getDailyPrice(checkin, roomType);
   let total = daily * nights;
 
-  // Add-ons
   if (breakfast) total += 200 * (adults + children);
   if (extrabed) total += 400;
 
@@ -694,7 +701,7 @@ function updatePriceDisplay() {
 }
 
 function handleWhatsAppBooking() {
-  // ... (same logic as before, but now includes guests + add-ons)
+  // ... (same logic, now includes all fields)
   const checkin = document.getElementById('checkin').value;
   const checkout = document.getElementById('checkout').value;
   const roomType = document.getElementById('roomType').value;
@@ -711,18 +718,24 @@ function handleWhatsAppBooking() {
   if (document.getElementById('breakfast').checked) total += 200 * (parseInt(adults) + parseInt(children));
   if (document.getElementById('extrabed').checked) total += 400;
 
-  const message = `Hello Ramma TheHotel!\n\nBooking Request:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${nights}\nAdults: ${adults} | Kids: ${children}\nBreakfast Package: ${breakfast}\nExtra Bed: ${extrabed}\nTotal Amount: ₹${total}\n\nPlease confirm availability. Thank you!`;
+  const message = `Hello Ramma TheHotel!\n\nBooking Request:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${nights}\nAdults: ${adults} | Kids: ${children}\nBreakfast: ${breakfast}\nExtra Bed: ${extrabed}\nTotal: ₹${total}\n\nPlease confirm availability.`;
 
   window.open(`https://wa.me/919460500789?text=${encodeURIComponent(message)}`, '_blank');
 }
 
 window.addEventListener('load', async () => {
   await loadPricingData();
-  const ids = ['checkin','checkout','roomType','adults','children','breakfast','extrabed'];
-  ids.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('change', updatePriceDisplay);
+  
+  // Dynamic adults on room change
+  document.getElementById('roomType').addEventListener('change', () => {
+    updateAdultsDropdown();
+    updatePriceDisplay();
   });
+
+  const inputs = ['checkin','checkout','adults','children','breakfast','extrabed'];
+  inputs.forEach(id => document.getElementById(id).addEventListener('change', updatePriceDisplay));
+
+  updateAdultsDropdown();   // initial call
   updatePriceDisplay();
 });
 </script>
