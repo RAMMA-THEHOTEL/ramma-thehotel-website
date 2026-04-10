@@ -43,39 +43,39 @@
 </head>
 <body class="font-sans">
 
- <!-- SOTA NAVBAR - Dark Glassmorphism (blends perfectly with hero) -->
-<nav class="bg-black/70 backdrop-blur-md shadow-md border-b border-white/10">
+ <!-- SOTA NAVBAR - Clean, Premium, No WhatsApp at top -->
+<nav class="bg-white shadow-md">
   <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
     
-    <!-- Logo + Brand -->
+    <!-- Left: Logo + Brand + Location (visible on mobile too) -->
     <div class="flex items-center gap-3">
       <img src="https://i.ibb.co/rf2b2tbc/Ramma-The-Hotel-Logo1.jpg" alt="Ramma TheHotel" class="logo-img h-12">
       <div>
-        <h1 class="text-2xl font-bold tracking-widest text-white">RAMMA THEHOTEL</h1>
-        <p class="text-xs text-white/80 -mt-1">Mount Abu • 200m from Nakki Lake</p>
+        <h1 class="text-2xl font-bold tracking-widest text-gray-900">RAMMA THEHOTEL</h1>
+        <p class="text-xs text-gray-500 -mt-1">Mount Abu • 200m from Nakki Lake</p>
       </div>
     </div>
 
-    <!-- Desktop Navigation -->
+    <!-- Navigation Links (Desktop) -->
     <div class="hidden md:flex gap-8 text-lg">
-      <a href="#rooms" class="nav-link text-white hover:text-amber-300">Rooms</a>
-      <a href="#gallery" class="nav-link text-white hover:text-amber-300">Gallery</a>
-      <a href="#amenities" class="nav-link text-white hover:text-amber-300">Amenities</a>
-      <a href="#location" class="nav-link text-white hover:text-amber-300">Location</a>
+      <a href="#rooms" class="nav-link text-gray-700 hover:text-primary-700">Rooms</a>
+      <a href="#gallery" class="nav-link text-gray-700 hover:text-primary-700">Gallery</a>
+      <a href="#amenities" class="nav-link text-gray-700 hover:text-primary-700">Amenities</a>
+      <a href="#location" class="nav-link text-gray-700 hover:text-primary-700">Location</a>
     </div>
 
     <!-- Mobile Hamburger -->
-    <button class="md:hidden text-3xl text-white" onclick="toggleMobileMenu()">
+    <button class="md:hidden text-3xl text-gray-700" onclick="toggleMobileMenu()">
       <i class="fa-solid fa-bars"></i>
     </button>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobileMenu" class="hidden md:hidden bg-black/90 border-t border-white/10 px-6 py-4">
-    <a href="#rooms" class="block py-3 text-lg text-white">Rooms</a>
-    <a href="#gallery" class="block py-3 text-lg text-white">Gallery</a>
-    <a href="#amenities" class="block py-3 text-lg text-white">Amenities</a>
-    <a href="#location" class="block py-3 text-lg text-white">Location</a>
+  <!-- Mobile Menu (hidden by default) -->
+  <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-6 py-4">
+    <a href="#rooms" class="block py-3 text-lg">Rooms</a>
+    <a href="#gallery" class="block py-3 text-lg">Gallery</a>
+    <a href="#amenities" class="block py-3 text-lg">Amenities</a>
+    <a href="#location" class="block py-3 text-lg">Location</a>
   </div>
 </nav>
 
