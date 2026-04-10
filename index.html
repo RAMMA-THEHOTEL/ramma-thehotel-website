@@ -59,38 +59,13 @@
 
     .scrollbar-hide::-webkit-scrollbar { display: none; }
 
-    /* NEW ANIMATIONS - SOTA TOUCH */
-@keyframes titlePop {
-  0% { opacity: 0; transform: scale(0.8); }
-  100% { opacity: 1; transform: scale(1); }
-}
-@keyframes kenburns {
-  0% { transform: scale(1.05); }
-  100% { transform: scale(1.15); }
-}
-.animate-title-pop { animation: titlePop 1.2s ease forwards; }
-.animate-title-pop-delay { animation: titlePop 1.2s 0.3s ease forwards; }
-.animate-fade-in { animation: fadeIn 1s ease forwards; }
-.animate-fade-in-delay { animation: fadeIn 1s 0.4s ease forwards; }
-.animate-fade-in-delay-2 { animation: fadeIn 1s 0.8s ease forwards; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-kenburns { animation: kenburns 25s ease infinite alternate; }
-
-.hero-bg {
-  background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://i.ibb.co/0p3z3PH2/Perspective-View-Raama-The-Hotel-6.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
     @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 .animate-fade-up { animation: fadeUp 1s ease forwards; }
 .animate-fade-up-delay { animation: fadeUp 1s 0.3s ease forwards; }
 .animate-fade-up-delay-2 { animation: fadeUp 1s 0.6s ease forwards; }
 .animate-fade-up-delay-3 { animation: fadeUp 1s 0.9s ease forwards; }
 .animate-bounce-slow { animation: bounce 3s infinite; }
+
     
     </style>
 </head>
@@ -115,7 +90,7 @@
     </div>
   </nav>
 
-  <!-- SOTA HERO - Single clean section, zero overlap, mobile-perfect -->
+     <!-- SOTA HERO - Single clean section, zero overlap, mobile-perfect -->
 <section class="relative h-screen flex items-center justify-center overflow-hidden">
   <!-- Background photo (your dark hotel shot style) - no aggressive zoom -->
   <div class="absolute inset-0 bg-[url('https://i.ibb.co/0p3z3PH2/Perspective-View-Raama-The-Hotel-6.jpg')] bg-cover bg-center"></div>
