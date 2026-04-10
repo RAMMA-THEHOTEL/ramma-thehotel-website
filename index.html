@@ -43,11 +43,11 @@
 </head>
 <body class="font-sans">
 
-<!-- SOTA NAVBAR - Clean, No Repetition, Premium Feel -->
+<!-- SOTA NAVBAR - Option 2 (Elegant Animated Tagline) -->
 <nav class="bg-white shadow-md">
   <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
     
-    <!-- Logo only (no repeated brand name) -->
+    <!-- Logo -->
     <img src="https://i.ibb.co/rf2b2tbc/Ramma-The-Hotel-Logo1.jpg" alt="Ramma TheHotel" class="logo-img h-12">
 
     <!-- Desktop Navigation -->
@@ -58,11 +58,11 @@
       <a href="#location" class="nav-link text-gray-700 hover:text-primary-700">Location</a>
     </div>
 
-    <!-- Small elegant tagline (visible on larger screens) -->
-    <div class="hidden sm:flex items-center gap-2 text-sm text-gray-500 font-medium">
-      <span>200m from Nakki Lake</span>
-      <span class="text-amber-300">•</span>
-      <span>Mount Abu</span>
+    <!-- Animated Tagline (SOTA smooth cycling) -->
+    <div class="hidden md:block text-right">
+      <div id="tagline" class="text-sm font-medium text-gray-600 h-5 flex items-center justify-end overflow-hidden">
+        <!-- JS will cycle these -->
+      </div>
     </div>
 
     <!-- Mobile Hamburger -->
@@ -80,6 +80,7 @@
   </div>
 </nav>
 
+  
   <!-- HERO -->
   <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 bg-[url('https://i.ibb.co/0p3z3PH2/Perspective-View-Raama-The-Hotel-6.jpg')] bg-cover bg-center"></div>
@@ -728,6 +729,40 @@ window.addEventListener('load', updateRoomCardsLive);
 </script>
 
   <script>
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('hidden');
+}
+</script>
+
+  <script>
+const taglines = [
+  "Rooftop Vibes & Quiet Evenings",
+  "Solo Travellers & Backpackers Welcome",
+  "Families & Friends Welcome",
+  "200m from Nakki Lake",
+  "Your Peaceful Hill Sanctuary"
+];
+
+let current = 0;
+const taglineEl = document.getElementById('tagline');
+
+function cycleTagline() {
+  taglineEl.style.opacity = 0;
+
+  setTimeout(() => {
+    taglineEl.textContent = taglines[current];
+    taglineEl.style.transition = "opacity 0.8s ease";
+    taglineEl.style.opacity = 1;
+
+    current = (current + 1) % taglines.length;
+  }, 400);
+}
+
+// Start cycling
+setInterval(cycleTagline, 3200);
+cycleTagline(); // first one immediately
+
 function toggleMobileMenu() {
   const menu = document.getElementById('mobileMenu');
   menu.classList.toggle('hidden');
