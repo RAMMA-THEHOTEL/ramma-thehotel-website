@@ -38,12 +38,15 @@
     .room-card:hover img { transform: scale(1.08); }
     .logo-img { height: 68px; width: auto; }
 
-    /* SOTA TITLE ANIMATION */
-    .sota-title {
-      animation: fadeInScale 1.2s ease-out forwards;
+    /* SOTA TITLE CARD - EXACT REPLICA OF YOUR IMAGE */
+    .title-card {
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      border: 12px solid #fff;
+      box-shadow: 0 0 40px rgba(249, 115, 22, 0.4);
+      animation: fadeInScale 1.5s ease-out forwards;
     }
     @keyframes fadeInScale {
-      0% { opacity: 0; transform: scale(0.95); }
+      0% { opacity: 0; transform: scale(0.92); }
       100% { opacity: 1; transform: scale(1); }
     }
   </style>
@@ -73,28 +76,30 @@
     </div>
   </nav>
 
-  <!-- CLEAN SOTA TITLE (no background bar) -->
-  <div class="sota-title py-12 text-center bg-white border-b">
-    <div class="max-w-4xl mx-auto px-6">
-      <h1 class="text-7xl md:text-8xl font-bold tracking-widest text-primary-800">RAMMA</h1>
+  <!-- EXACT TITLE CARD REPLICA FROM YOUR IMAGE -->
+  <div class="title-card py-14 text-center">
+    <div class="max-w-5xl mx-auto px-6">
+      <h1 class="text-7xl md:text-8xl font-bold text-white tracking-widest">RAMMA</h1>
       
-      <!-- Tripund Tilak -->
-      <div class="flex justify-center items-center gap-3 my-6">
-        <div class="flex flex-col items-center">
-          <div class="w-28 h-1 bg-primary-700 rounded"></div>
-          <div class="w-28 h-1 bg-primary-700 rounded mt-2"></div>
-          <div class="w-28 h-1 bg-primary-700 rounded mt-2"></div>
-        </div>
-        <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white text-xl mt-1">•</div>
-        <div class="flex flex-col items-center">
-          <div class="w-28 h-1 bg-primary-700 rounded"></div>
-          <div class="w-28 h-1 bg-primary-700 rounded mt-2"></div>
-          <div class="w-28 h-1 bg-primary-700 rounded mt-2"></div>
-        </div>
+      <!-- Vertical Tripund Tilak (exact style from your image) -->
+      <div class="flex justify-center items-center my-8">
+        <svg width="110" height="130" viewBox="0 0 110 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 20 L28 110 L82 110 L82 20" stroke="#fff" stroke-width="14" stroke-linejoin="round"/>
+          <path d="M42 20 L42 110" stroke="#fff" stroke-width="8" stroke-linejoin="round"/>
+          <path d="M68 20 L68 110" stroke="#fff" stroke-width="8" stroke-linejoin="round"/>
+          <ellipse cx="55" cy="78" rx="13" ry="18" fill="#dc2626"/>
+        </svg>
       </div>
 
-      <h2 class="text-5xl md:text-6xl font-semibold tracking-widest text-primary-800">THEHOTEL</h2>
-      <p class="text-3xl md:text-4xl mt-6 tracking-[6px] text-primary-700">MOUNT ABU</p>
+      <h2 class="text-5xl md:text-6xl font-semibold text-white tracking-widest">THEHOTEL</h2>
+      
+      <div class="flex items-center justify-center gap-6 mt-10 mb-4">
+        <div class="h-px w-20 bg-white"></div>
+        <span class="text-white text-4xl">✦</span>
+        <div class="h-px w-20 bg-white"></div>
+      </div>
+      
+      <p class="text-4xl font-medium text-white tracking-[8px]">MOUNT ABU</p>
     </div>
   </div>
 
