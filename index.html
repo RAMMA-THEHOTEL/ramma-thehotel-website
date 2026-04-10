@@ -56,6 +56,8 @@
       .hero-bg p { font-size: 1.4rem !important; }
       .review-card { min-width: 245px; padding: 1.25rem; }
     }
+
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="font-sans">
@@ -316,8 +318,8 @@
       <h2 class="text-4xl font-bold text-center mb-3 text-primary-800">What Our Guests Are Saying</h2>
       <p class="text-center text-gray-600 mb-12">4.7/5 on Google • 239 Happy Guests</p>
       
-      <div class="marquee">
-        <div class="marquee-content">
+      <!-- TOUCH SCROLLABLE REVIEWS -->
+    <div class="flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide">
           <!-- All 15 reviews with proper wrapping -->
           <div class="review-card bg-white border border-gray-200 rounded-3xl p-6 shadow-sm">
             <div class="flex text-yellow-400 text-2xl mb-3">★★★★★</div>
