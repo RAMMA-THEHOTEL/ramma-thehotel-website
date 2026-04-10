@@ -73,18 +73,43 @@
 
     .scrollbar-hide::-webkit-scrollbar { display: none; }
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-.animate-fade-up { animation: fadeUp 1s ease forwards; }
-.animate-fade-up-delay { animation: fadeUp 1s 0.3s ease forwards; }
-.animate-fade-up-delay-2 { animation: fadeUp 1s 0.6s ease forwards; }
-.animate-fade-up-delay-3 { animation: fadeUp 1s 0.9s ease forwards; }
-/* Gentle bounce for scroll arrow */
-.animate-bounce-slow { animation: bounce 3s infinite; }
+   /* SOTA PREMIUM ANIMATIONS - Luxury hotel feel */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(35px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-15px); }
+  40% { transform: translateY(-18px); }
   60% { transform: translateY(-8px); }
+}
+
+/* Staggered delays - more cinematic & calm */
+.animate-fade-up { 
+  animation: fadeUp 1.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; 
+}
+.animate-fade-up-delay { 
+  animation: fadeUp 1.4s 0.25s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; 
+}
+.animate-fade-up-delay-2 { 
+  animation: fadeUp 1.4s 0.55s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; 
+}
+.animate-fade-up-delay-3 { 
+  animation: fadeUp 1.4s 0.85s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; 
+}
+.animate-fade-up-delay-4 { 
+  animation: fadeUp 1.4s 1.15s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; 
+}
+
+.animate-bounce-slow { 
+  animation: bounce 3.2s infinite ease-in-out; 
 }
 
     
@@ -150,7 +175,7 @@
     </h3>
 
     <!-- CTA Buttons -->
-    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12 px-4 animate-fade-up-delay-3">
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12 px-4 animate-fade-up-delay-4">
       <a href="https://wa.me/919460500789" target="_blank"
          class="bg-white text-primary-800 px-10 py-6 rounded-3xl text-2xl font-bold flex items-center justify-center gap-3 hover:scale-105 transition-all duration-300 shadow-xl">
         <i class="fa-brands fa-whatsapp text-4xl"></i>
