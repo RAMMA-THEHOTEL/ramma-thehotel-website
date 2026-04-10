@@ -636,29 +636,26 @@ function formatDateForSheet(dateStr) {
   return `${d}-${m}-${y}`;
 }
 
-function formatReadableDate(dateStr) {
-  if (!dateStr) return "";
-  const [y, m, d] = dateStr.split('-');
-  const date = new Date(y, m-1, d);
-  return date.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
-}
-
+// Get exact price for ONE specific date from your sheet
 function getDailyPrice(dateStr, roomType) {
   const formatted = formatDateForSheet(dateStr);
   const row = pricingData.find(r => r.date === formatted);
-  if (!row) return 1200;
-  return roomType === "Standard" ? row.standard : roomType === "Deluxe" ? row.deluxe : row.family;
+  if (!row) return 1200; // fallback only if date not in sheet
+  return roomType === "Standard" ? row.standard : 
+         roomType === "Deluxe" ? row.deluxe : row.family;
 }
 
+// CORRECT LOGIC: Sum price of every single night
 function calculateTotal(checkinStr, checkoutStr, roomType) {
   const start = new Date(checkinStr);
   const end = new Date(checkoutStr);
   let total = 0;
   let nights = 0;
-  let current = new Date(start);
 
+  let current = new Date(start);
   while (current < end) {
-    total += getDailyPrice(current.toISOString().split('T')[0], roomType);
+    const dailyPrice = getDailyPrice(current.toISOString().split('T')[0], roomType);
+    total += dailyPrice;
     nights++;
     current.setDate(current.getDate() + 1);
   }
@@ -684,8 +681,9 @@ function updatePriceDisplay() {
   const checkout = document.getElementById('checkout').value;
   const roomType = document.getElementById('roomType').value;
 
-  document.getElementById('checkinLabel').textContent = checkin ? formatReadableDate(checkin) : "";
-  document.getElementById('checkoutLabel').textContent = checkout ? formatReadableDate(checkout) : "";
+  // Show readable date below picker
+  document.getElementById('checkinLabel').textContent = checkin ? checkin.split('-').reverse().join('-') : "";
+  document.getElementById('checkoutLabel').textContent = checkout ? checkout.split('-').reverse().join('-') : "";
 
   const priceDisplay = document.getElementById('priceDisplay');
   const totalDisplay = document.getElementById('totalDisplay');
@@ -707,7 +705,9 @@ function updatePriceDisplay() {
   if (breakfast) total += 200 * (adults + children);
   if (extrabed) total += 400;
 
-  priceDisplay.innerHTML = `₹${Math.round(result.total / result.nights)} <span class="text-base font-normal">/ night</span>`;
+  const avgRate = Math.round(result.total / result.nights);
+
+  priceDisplay.innerHTML = `₹${avgRate} <span class="text-base font-normal">/ night</span>`;
   totalDisplay.innerHTML = `Total for <strong>${result.nights}</strong> nights + add-ons: <strong>₹${total}</strong>`;
 }
 
