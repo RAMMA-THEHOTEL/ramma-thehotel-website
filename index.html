@@ -602,7 +602,7 @@ async function loadPricingData() {
     const rows = text.split('\n').map(row => row.split(','));
     
     pricingData = rows.slice(1).map(row => ({
-      date: row[0].trim(),
+      date: row[0].trim(),           // dd-mm-yyyy from your sheet
       standard: parseInt(row[2]) || 0,
       deluxe: parseInt(row[3]) || 0,
       family: parseInt(row[4]) || 0
@@ -610,15 +610,23 @@ async function loadPricingData() {
   } catch(e) {}
 }
 
+// Convert yyyy-mm-dd to dd-mm-yyyy to match sheet
+function formatDateForSheet(dateStr) {
+  if (!dateStr) return "";
+  const [yyyy, mm, dd] = dateStr.split('-');
+  return `${dd}-${mm}-${yyyy}`;
+}
+
 // Get price for a date
 function getPriceForDate(dateStr, roomType) {
-  const row = pricingData.find(r => r.date === dateStr);
-  if (!row) return 0;
-  
+  const formattedDate = formatDateForSheet(dateStr);
+  const row = pricingData.find(r => r.date === formattedDate);
+  if (!row) return null;   // null = no price found
+
   if (roomType === "Standard") return row.standard;
   if (roomType === "Deluxe") return row.deluxe;
   if (roomType === "Family") return row.family;
-  return 0;
+  return null;
 }
 
 // Update price display
@@ -630,7 +638,6 @@ function updatePriceDisplay() {
   const priceDisplay = document.getElementById('priceDisplay');
   const totalDisplay = document.getElementById('totalDisplay');
 
-  // Clear price until both dates are selected
   if (!checkin || !checkout) {
     priceDisplay.textContent = "Select dates to see price";
     totalDisplay.textContent = "";
@@ -641,27 +648,32 @@ function updatePriceDisplay() {
   const checkoutDate = new Date(checkout);
   let nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
 
-  // Prevent negative or zero nights
   if (nights < 1) {
-    priceDisplay.textContent = "Select valid dates";
+    priceDisplay.textContent = "Check-out must be after check-in";
     totalDisplay.textContent = "";
     return;
   }
 
-  const dailyPrice = getPriceForDate(checkin, roomType) || 1200; // fallback only if no data
+  const dailyPrice = getPriceForDate(checkin, roomType);
+
+  if (dailyPrice === null) {
+    priceDisplay.textContent = "Price not available";
+    totalDisplay.textContent = "";
+    return;
+  }
 
   priceDisplay.innerHTML = `₹${dailyPrice} <span class="text-base font-normal">/ night</span>`;
   totalDisplay.innerHTML = `Total for <strong>${nights}</strong> nights: <strong>₹${dailyPrice * nights}</strong>`;
 }
 
-// WhatsApp booking
+// WhatsApp handler
 function handleWhatsAppBooking() {
   const checkin = document.getElementById('checkin').value;
   const checkout = document.getElementById('checkout').value;
   const roomType = document.getElementById('roomType').value;
 
   if (!checkin || !checkout) {
-    alert("Please select check-in and check-out dates");
+    alert("Please select both dates");
     return;
   }
 
@@ -670,11 +682,16 @@ function handleWhatsAppBooking() {
   let nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
 
   if (nights < 1) {
-    alert("Check-out date must be after check-in date");
+    alert("Check-out date must be after check-in");
     return;
   }
 
-  const dailyPrice = getPriceForDate(checkin, roomType) || 1200;
+  const dailyPrice = getPriceForDate(checkin, roomType);
+  if (dailyPrice === null) {
+    alert("Price not available for selected dates");
+    return;
+  }
+
   const total = dailyPrice * nights;
 
   const message = `Hello Ramma TheHotel!\n\nI want to book:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${nights}\nTotal Amount: ₹${total}\n\nPlease confirm availability.`;
@@ -688,11 +705,10 @@ window.addEventListener('load', async () => {
   
   const inputs = ['checkin', 'checkout', 'roomType'];
   inputs.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('change', updatePriceDisplay);
+    document.getElementById(id).addEventListener('change', updatePriceDisplay);
   });
 
-  // Initial state - no price shown
+  // Clean initial state
   document.getElementById('priceDisplay').textContent = "Select dates to see price";
   document.getElementById('totalDisplay').textContent = "";
 });
