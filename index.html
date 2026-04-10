@@ -43,25 +43,26 @@
 </head>
 <body class="font-sans">
 
- <!-- SOTA NAVBAR - Clean, Premium, No WhatsApp at top -->
+<!-- SOTA NAVBAR - Clean, No Repetition, Premium Feel -->
 <nav class="bg-white shadow-md">
   <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
     
-    <!-- Left: Logo + Brand + Location (visible on mobile too) -->
-    <div class="flex items-center gap-3">
-      <img src="https://i.ibb.co/rf2b2tbc/Ramma-The-Hotel-Logo1.jpg" alt="Ramma TheHotel" class="logo-img h-12">
-      <div>
-        <h1 class="text-2xl font-bold tracking-widest text-gray-900">RAMMA THEHOTEL</h1>
-        <p class="text-xs text-gray-500 -mt-1">Mount Abu • 200m from Nakki Lake</p>
-      </div>
-    </div>
+    <!-- Logo only (no repeated brand name) -->
+    <img src="https://i.ibb.co/rf2b2tbc/Ramma-The-Hotel-Logo1.jpg" alt="Ramma TheHotel" class="logo-img h-12">
 
-    <!-- Navigation Links (Desktop) -->
+    <!-- Desktop Navigation -->
     <div class="hidden md:flex gap-8 text-lg">
       <a href="#rooms" class="nav-link text-gray-700 hover:text-primary-700">Rooms</a>
       <a href="#gallery" class="nav-link text-gray-700 hover:text-primary-700">Gallery</a>
       <a href="#amenities" class="nav-link text-gray-700 hover:text-primary-700">Amenities</a>
       <a href="#location" class="nav-link text-gray-700 hover:text-primary-700">Location</a>
+    </div>
+
+    <!-- Small elegant tagline (visible on larger screens) -->
+    <div class="hidden sm:flex items-center gap-2 text-sm text-gray-500 font-medium">
+      <span>200m from Nakki Lake</span>
+      <span class="text-amber-300">•</span>
+      <span>Mount Abu</span>
     </div>
 
     <!-- Mobile Hamburger -->
@@ -70,7 +71,7 @@
     </button>
   </div>
 
-  <!-- Mobile Menu (hidden by default) -->
+  <!-- Mobile Menu -->
   <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-6 py-4">
     <a href="#rooms" class="block py-3 text-lg">Rooms</a>
     <a href="#gallery" class="block py-3 text-lg">Gallery</a>
