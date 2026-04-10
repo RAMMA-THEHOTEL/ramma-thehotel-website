@@ -193,25 +193,25 @@
 </section>
 
   
-    <!-- === SOTA BOOKING BAR - Live from Google Sheet === -->
+   <!-- === SOTA BOOKING BAR with Guests & Add-ons === -->
 <section class="py-8 bg-white shadow-xl sticky top-0 z-40 border-b">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="bg-white rounded-3xl shadow-2xl p-5 md:p-6 flex flex-col md:flex-row items-center gap-4 md:gap-8">
+    <div class="bg-white rounded-3xl shadow-2xl p-5 md:p-6 flex flex-col md:flex-row items-center gap-4 md:gap-6">
 
       <!-- Check-in -->
-      <div class="flex-1">
+      <div class="flex-1 min-w-0">
         <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-IN</label>
         <input type="date" id="checkin" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
       </div>
 
       <!-- Check-out -->
-      <div class="flex-1">
+      <div class="flex-1 min-w-0">
         <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-OUT</label>
         <input type="date" id="checkout" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
       </div>
 
-      <!-- Nights + Room Type -->
-      <div class="flex-1">
+      <!-- Room Type -->
+      <div class="flex-1 min-w-0">
         <label class="text-xs font-semibold text-gray-500 block mb-1">ROOM TYPE</label>
         <select id="roomType" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
           <option value="Standard">Standard Non-AC</option>
@@ -220,21 +220,56 @@
         </select>
       </div>
 
-      <!-- Live Price Display -->
-      <div class="flex-1 text-center">
-        <div class="text-xs font-semibold text-gray-500">PRICE FOR SELECTED DATES</div>
-        <div id="priceDisplay" class="text-3xl font-bold text-primary-600">₹1,200 / night</div>
-        <div id="totalDisplay" class="text-sm text-gray-600 mt-1">Total for <span id="nightsCount">0</span> nights: ₹0</div>
+      <!-- Guests -->
+      <div class="flex-1 min-w-0">
+        <label class="text-xs font-semibold text-gray-500 block mb-1">GUESTS</label>
+        <div class="flex gap-3">
+          <div class="flex-1">
+            <select id="adults" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+              <option value="1">1 Adult</option>
+              <option value="2" selected>2 Adults</option>
+              <option value="3">3 Adults</option>
+              <option value="4">4 Adults</option>
+            </select>
+          </div>
+          <div class="flex-1">
+            <select id="children" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+              <option value="0" selected>0 Kids</option>
+              <option value="1">1 Kid</option>
+              <option value="2">2 Kids</option>
+              <option value="3">3 Kids</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add-ons -->
+      <div class="flex-1 md:flex-none">
+        <label class="text-xs font-semibold text-gray-500 block mb-2">ADD-ONS</label>
+        <div class="space-y-2">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="breakfast" class="w-5 h-5 accent-primary-600">
+            <span class="text-sm">Breakfast Package (₹200/person)</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="extrabed" class="w-5 h-5 accent-primary-600">
+            <span class="text-sm">Extra Bed (₹400)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Price Display -->
+      <div class="flex-1 text-center md:text-right">
+        <div id="priceDisplay" class="text-3xl font-bold text-primary-600">Select dates</div>
+        <div id="totalDisplay" class="text-sm text-gray-600"></div>
       </div>
 
       <!-- WhatsApp Button -->
-      <div>
-        <button onclick="handleWhatsAppBooking()" 
-                class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3 transition-all">
-          <i class="fa-brands fa-whatsapp text-3xl"></i>
-          Check Availability
-        </button>
-      </div>
+      <button onclick="handleWhatsAppBooking()" 
+              class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3 transition-all whitespace-nowrap">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+        Check Availability
+      </button>
     </div>
   </div>
 </section>
@@ -589,51 +624,47 @@
   </footer>
 
 <script>
-// Your published CSV link
+// Your CSV link
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS6uh3gxVxtx9JUIuc4wAuhEyQfTw0pza0TLFw6r5w_q9Kyun-_440-biUzhjkWVOLjhVzgWWw4sGFc/pub?gid=1926317872&single=true&output=csv";
 
 let pricingData = [];
 
-// Load pricing data
 async function loadPricingData() {
   try {
-    const response = await fetch(CSV_URL);
-    const text = await response.text();
-    const rows = text.split('\n').map(row => row.split(','));
-    
+    const res = await fetch(CSV_URL);
+    const text = await res.text();
+    const rows = text.split('\n').map(r => r.split(','));
     pricingData = rows.slice(1).map(row => ({
-      date: row[0].trim(),           // dd-mm-yyyy from your sheet
+      date: row[0].trim(),
       standard: parseInt(row[2]) || 0,
       deluxe: parseInt(row[3]) || 0,
       family: parseInt(row[4]) || 0
-    })).filter(row => row.date);
+    })).filter(r => r.date);
   } catch(e) {}
 }
 
-// Convert yyyy-mm-dd to dd-mm-yyyy to match sheet
 function formatDateForSheet(dateStr) {
   if (!dateStr) return "";
-  const [yyyy, mm, dd] = dateStr.split('-');
-  return `${dd}-${mm}-${yyyy}`;
+  const [y, m, d] = dateStr.split('-');
+  return `${d}-${m}-${y}`;
 }
 
-// Get price for a date
-function getPriceForDate(dateStr, roomType) {
-  const formattedDate = formatDateForSheet(dateStr);
-  const row = pricingData.find(r => r.date === formattedDate);
-  if (!row) return null;   // null = no price found
-
-  if (roomType === "Standard") return row.standard;
-  if (roomType === "Deluxe") return row.deluxe;
-  if (roomType === "Family") return row.family;
-  return null;
+function getDailyPrice(dateStr, roomType) {
+  const formatted = formatDateForSheet(dateStr);
+  const row = pricingData.find(r => r.date === formatted);
+  if (!row) return 1200;
+  return roomType === "Standard" ? row.standard :
+         roomType === "Deluxe" ? row.deluxe : row.family;
 }
 
-// Update price display
 function updatePriceDisplay() {
   const checkin = document.getElementById('checkin').value;
   const checkout = document.getElementById('checkout').value;
   const roomType = document.getElementById('roomType').value;
+  const adults = parseInt(document.getElementById('adults').value);
+  const children = parseInt(document.getElementById('children').value);
+  const breakfast = document.getElementById('breakfast').checked;
+  const extrabed = document.getElementById('extrabed').checked;
 
   const priceDisplay = document.getElementById('priceDisplay');
   const totalDisplay = document.getElementById('totalDisplay');
@@ -644,73 +675,55 @@ function updatePriceDisplay() {
     return;
   }
 
-  const checkinDate = new Date(checkin);
-  const checkoutDate = new Date(checkout);
-  let nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
-
+  let nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000*60*60*24));
   if (nights < 1) {
-    priceDisplay.textContent = "Check-out must be after check-in";
+    priceDisplay.textContent = "Invalid dates";
     totalDisplay.textContent = "";
     return;
   }
 
-  const dailyPrice = getPriceForDate(checkin, roomType);
+  const daily = getDailyPrice(checkin, roomType);
+  let total = daily * nights;
 
-  if (dailyPrice === null) {
-    priceDisplay.textContent = "Price not available";
-    totalDisplay.textContent = "";
-    return;
-  }
+  // Add-ons
+  if (breakfast) total += 200 * (adults + children);
+  if (extrabed) total += 400;
 
-  priceDisplay.innerHTML = `₹${dailyPrice} <span class="text-base font-normal">/ night</span>`;
-  totalDisplay.innerHTML = `Total for <strong>${nights}</strong> nights: <strong>₹${dailyPrice * nights}</strong>`;
+  priceDisplay.innerHTML = `₹${daily} <span class="text-base font-normal">/ night</span>`;
+  totalDisplay.innerHTML = `Total for <strong>${nights}</strong> nights + add-ons: <strong>₹${total}</strong>`;
 }
 
-// WhatsApp handler
 function handleWhatsAppBooking() {
+  // ... (same logic as before, but now includes guests + add-ons)
   const checkin = document.getElementById('checkin').value;
   const checkout = document.getElementById('checkout').value;
   const roomType = document.getElementById('roomType').value;
+  const adults = document.getElementById('adults').value;
+  const children = document.getElementById('children').value;
+  const breakfast = document.getElementById('breakfast').checked ? "Yes" : "No";
+  const extrabed = document.getElementById('extrabed').checked ? "Yes" : "No";
 
-  if (!checkin || !checkout) {
-    alert("Please select both dates");
-    return;
-  }
+  if (!checkin || !checkout) return alert("Please select dates");
 
-  const checkinDate = new Date(checkin);
-  const checkoutDate = new Date(checkout);
-  let nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+  let nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000*60*60*24));
+  const daily = getDailyPrice(checkin, roomType);
+  let total = daily * nights;
+  if (document.getElementById('breakfast').checked) total += 200 * (parseInt(adults) + parseInt(children));
+  if (document.getElementById('extrabed').checked) total += 400;
 
-  if (nights < 1) {
-    alert("Check-out date must be after check-in");
-    return;
-  }
-
-  const dailyPrice = getPriceForDate(checkin, roomType);
-  if (dailyPrice === null) {
-    alert("Price not available for selected dates");
-    return;
-  }
-
-  const total = dailyPrice * nights;
-
-  const message = `Hello Ramma TheHotel!\n\nI want to book:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${nights}\nTotal Amount: ₹${total}\n\nPlease confirm availability.`;
+  const message = `Hello Ramma TheHotel!\n\nBooking Request:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${nights}\nAdults: ${adults} | Kids: ${children}\nBreakfast Package: ${breakfast}\nExtra Bed: ${extrabed}\nTotal Amount: ₹${total}\n\nPlease confirm availability. Thank you!`;
 
   window.open(`https://wa.me/919460500789?text=${encodeURIComponent(message)}`, '_blank');
 }
 
-// Initialize
 window.addEventListener('load', async () => {
   await loadPricingData();
-  
-  const inputs = ['checkin', 'checkout', 'roomType'];
-  inputs.forEach(id => {
-    document.getElementById(id).addEventListener('change', updatePriceDisplay);
+  const ids = ['checkin','checkout','roomType','adults','children','breakfast','extrabed'];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', updatePriceDisplay);
   });
-
-  // Clean initial state
-  document.getElementById('priceDisplay').textContent = "Select dates to see price";
-  document.getElementById('totalDisplay').textContent = "";
+  updatePriceDisplay();
 });
 </script>
   
