@@ -43,16 +43,16 @@
 </head>
 <body class="font-sans">
 
-<!-- SOTA NAVBAR - Animated Tagline Visible on Mobile + No Layout Shift -->
+<!-- SOTA NAVBAR - Fixed Mobile Cropping -->
 <nav class="bg-white shadow-md">
   <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-
+    
     <!-- Logo -->
     <img src="https://i.ibb.co/rf2b2tbc/Ramma-The-Hotel-Logo1.jpg" alt="Ramma TheHotel" class="logo-img h-12">
 
-    <!-- Animated Tagline (visible on mobile + desktop, fixed width to prevent shift) -->
+    <!-- Animated Tagline - More height on mobile -->
     <div class="flex-1 max-w-[260px] md:max-w-[340px] mx-4 text-center">
-      <div id="tagline" class="text-sm md:text-base font-medium text-gray-700 h-5 md:h-6 flex items-center justify-center overflow-hidden"></div>
+      <div id="tagline" class="text-sm md:text-base font-medium text-gray-700 h-10 md:h-6 flex items-center justify-center leading-tight overflow-hidden"></div>
     </div>
 
     <!-- Desktop Navigation -->
@@ -726,7 +726,7 @@ async function updateRoomCardsLive() {
 window.addEventListener('load', updateRoomCardsLive);
 </script>
 
- <script>
+<script>
 const taglines = [
   "RAMMA THEHOTEL",
   "200m from Nakki Lake",
@@ -753,7 +753,7 @@ function cycleTagline() {
 }
 
 setInterval(cycleTagline, 3200);
-cycleTagline(); // first run
+cycleTagline();
 
 function toggleMobileMenu() {
   const menu = document.getElementById('mobileMenu');
