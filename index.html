@@ -37,11 +37,14 @@
     .room-card img { transition: transform 0.4s; }
     .room-card:hover img { transform: scale(1.08); }
     .logo-img { height: 68px; width: auto; }
+
+    /* SOTA TITLE ANIMATION */
     .sota-title {
-      background: linear-gradient(90deg, #FF6200, #E54F00);
-      color: white;
-      border: 4px solid #fff;
-      box-shadow: 0 0 30px rgba(255, 98, 0, 0.5);
+      animation: fadeInScale 1.2s ease-out forwards;
+    }
+    @keyframes fadeInScale {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
@@ -70,19 +73,28 @@
     </div>
   </nav>
 
-  <!-- SOTA TITLE BANNER (THIS IS WHAT YOU WANTED) -->
-  <div class="sota-title py-8 text-center">
+  <!-- CLEAN SOTA TITLE (no background bar) -->
+  <div class="sota-title py-12 text-center bg-white border-b">
     <div class="max-w-4xl mx-auto px-6">
-      <div class="flex flex-col items-center">
-        <h1 class="text-7xl md:text-8xl font-bold tracking-widest">RAMMA</h1>
-        <div class="flex items-center gap-4 my-2">
-          <div class="w-12 h-1 bg-white"></div>
-          <span class="text-6xl">🪔</span>
-          <div class="w-12 h-1 bg-white"></div>
+      <h1 class="text-7xl md:text-8xl font-bold tracking-widest text-primary-800">RAMMA</h1>
+      
+      <!-- Tripund Tilak -->
+      <div class="flex justify-center items-center gap-3 my-6">
+        <div class="flex flex-col items-center">
+          <div class="w-28 h-1 bg-primary-700 rounded"></div>
+          <div class="w-28 h-1 bg-primary-700 rounded mt-2"></div>
+          <div class="w-28 h-1 bg-primary-700 rounded mt-2"></div>
         </div>
-        <h2 class="text-5xl font-semibold tracking-widest">THEHOTEL</h2>
-        <p class="text-3xl mt-3 tracking-[4px]">MOUNT ABU</p>
+        <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white text-xl mt-1">•</div>
+        <div class="flex flex-col items-center">
+          <div class="w-28 h-1 bg-primary-700 rounded"></div>
+          <div class="w-28 h-1 bg-primary-700 rounded mt-2"></div>
+          <div class="w-28 h-1 bg-primary-700 rounded mt-2"></div>
+        </div>
       </div>
+
+      <h2 class="text-5xl md:text-6xl font-semibold tracking-widest text-primary-800">THEHOTEL</h2>
+      <p class="text-3xl md:text-4xl mt-6 tracking-[6px] text-primary-700">MOUNT ABU</p>
     </div>
   </div>
 
