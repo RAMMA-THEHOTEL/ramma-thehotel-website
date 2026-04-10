@@ -193,23 +193,27 @@
 </section>
 
   
-   <!-- === IMPROVED SOTA BOOKING BAR (Dynamic Guests + Better Spacing) === -->
+  <!-- === FINAL SOTA BOOKING BAR (Per-Day Pricing + Clean Layout) === -->
 <section class="py-8 bg-white shadow-xl sticky top-0 z-40 border-b">
   <div class="max-w-7xl mx-auto px-6">
     <div class="bg-white rounded-3xl shadow-2xl p-6">
 
       <!-- First Row -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
         <!-- Check-in -->
         <div>
           <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-IN</label>
           <input type="date" id="checkin" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+          <div id="checkinLabel" class="text-xs text-gray-400 mt-1 text-center"></div>
         </div>
+
         <!-- Check-out -->
         <div>
           <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-OUT</label>
           <input type="date" id="checkout" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+          <div id="checkoutLabel" class="text-xs text-gray-400 mt-1 text-center"></div>
         </div>
+
         <!-- Room Type -->
         <div>
           <label class="text-xs font-semibold text-gray-500 block mb-1">ROOM TYPE</label>
@@ -219,17 +223,21 @@
             <option value="Family">Family Room (4 persons) AC</option>
           </select>
         </div>
-        <!-- Guests -->
+
+        <!-- Adults -->
         <div>
-          <label class="text-xs font-semibold text-gray-500 block mb-1">GUESTS</label>
-          <div class="flex gap-3">
-            <select id="adults" class="flex-1 text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5"></select>
-            <select id="children" class="flex-1 text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
-              <option value="0">0 Kids</option>
-              <option value="1">1 Kid</option>
-              <option value="2">2 Kids</option>
-            </select>
-          </div>
+          <label class="text-xs font-semibold text-gray-500 block mb-1">ADULTS</label>
+          <select id="adults" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5"></select>
+        </div>
+
+        <!-- Children -->
+        <div>
+          <label class="text-xs font-semibold text-gray-500 block mb-1">CHILDREN</label>
+          <select id="children" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+            <option value="0">0 Kids</option>
+            <option value="1">1 Kid</option>
+            <option value="2">2 Kids</option>
+          </select>
         </div>
       </div>
 
@@ -258,7 +266,7 @@
 
         <!-- WhatsApp Button -->
         <button onclick="handleWhatsAppBooking()" 
-                class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3 transition-all">
+                class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3 transition-all whitespace-nowrap">
           <i class="fa-brands fa-whatsapp text-3xl"></i>
           Check Availability
         </button>
@@ -642,6 +650,7 @@ function formatDateForSheet(dateStr) {
   return `${d}-${m}-${y}`;
 }
 
+// Get price for one specific date
 function getDailyPrice(dateStr, roomType) {
   const formatted = formatDateForSheet(dateStr);
   const row = pricingData.find(r => r.date === formatted);
@@ -649,19 +658,35 @@ function getDailyPrice(dateStr, roomType) {
   return roomType === "Standard" ? row.standard : roomType === "Deluxe" ? row.deluxe : row.family;
 }
 
-// Dynamic Adults dropdown
+// Calculate total by summing every single day
+function calculateTotal(checkinStr, checkoutStr, roomType) {
+  const checkin = new Date(checkinStr);
+  const checkout = new Date(checkoutStr);
+  let total = 0;
+  let nights = 0;
+
+  let current = new Date(checkin);
+  while (current < checkout) {
+    const daily = getDailyPrice(current.toISOString().split('T')[0], roomType);
+    total += daily;
+    nights++;
+    current.setDate(current.getDate() + 1);
+  }
+  return { total, nights };
+}
+
+// Dynamic adults dropdown
 function updateAdultsDropdown() {
   const roomType = document.getElementById('roomType').value;
-  const adultsSelect = document.getElementById('adults');
-  const maxAdults = (roomType === "Family") ? 5 : 3;
-
-  adultsSelect.innerHTML = '';
-  for (let i = 1; i <= maxAdults; i++) {
-    const option = document.createElement('option');
-    option.value = i;
-    option.textContent = i + (i === 1 ? " Adult" : " Adults");
-    if (i === 2) option.selected = true;
-    adultsSelect.appendChild(option);
+  const max = (roomType === "Family") ? 5 : 3;
+  const select = document.getElementById('adults');
+  select.innerHTML = '';
+  for (let i = 1; i <= max; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = i + (i === 1 ? " Adult" : " Adults");
+    if (i === 2) opt.selected = true;
+    select.appendChild(opt);
   }
 }
 
@@ -683,25 +708,17 @@ function updatePriceDisplay() {
     return;
   }
 
-  let nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000*60*60*24));
-  if (nights < 1) {
-    priceDisplay.textContent = "Invalid dates";
-    totalDisplay.textContent = "";
-    return;
-  }
-
-  const daily = getDailyPrice(checkin, roomType);
-  let total = daily * nights;
+  const result = calculateTotal(checkin, checkout, roomType);
+  let total = result.total;
 
   if (breakfast) total += 200 * (adults + children);
   if (extrabed) total += 400;
 
-  priceDisplay.innerHTML = `₹${daily} <span class="text-base font-normal">/ night</span>`;
-  totalDisplay.innerHTML = `Total for <strong>${nights}</strong> nights + add-ons: <strong>₹${total}</strong>`;
+  priceDisplay.innerHTML = `₹${result.total / result.nights} <span class="text-base font-normal">/ night</span>`;
+  totalDisplay.innerHTML = `Total for <strong>${result.nights}</strong> nights + add-ons: <strong>₹${total}</strong>`;
 }
 
 function handleWhatsAppBooking() {
-  // ... (same logic, now includes all fields)
   const checkin = document.getElementById('checkin').value;
   const checkout = document.getElementById('checkout').value;
   const roomType = document.getElementById('roomType').value;
@@ -712,13 +729,12 @@ function handleWhatsAppBooking() {
 
   if (!checkin || !checkout) return alert("Please select dates");
 
-  let nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000*60*60*24));
-  const daily = getDailyPrice(checkin, roomType);
-  let total = daily * nights;
+  const result = calculateTotal(checkin, checkout, roomType);
+  let total = result.total;
   if (document.getElementById('breakfast').checked) total += 200 * (parseInt(adults) + parseInt(children));
   if (document.getElementById('extrabed').checked) total += 400;
 
-  const message = `Hello Ramma TheHotel!\n\nBooking Request:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${nights}\nAdults: ${adults} | Kids: ${children}\nBreakfast: ${breakfast}\nExtra Bed: ${extrabed}\nTotal: ₹${total}\n\nPlease confirm availability.`;
+  const message = `Hello Ramma TheHotel!\n\nBooking Request:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${result.nights}\nAdults: ${adults} | Kids: ${children}\nBreakfast: ${breakfast}\nExtra Bed: ${extrabed}\nTotal: ₹${total}\n\nPlease confirm availability.`;
 
   window.open(`https://wa.me/919460500789?text=${encodeURIComponent(message)}`, '_blank');
 }
@@ -726,7 +742,6 @@ function handleWhatsAppBooking() {
 window.addEventListener('load', async () => {
   await loadPricingData();
   
-  // Dynamic adults on room change
   document.getElementById('roomType').addEventListener('change', () => {
     updateAdultsDropdown();
     updatePriceDisplay();
@@ -735,7 +750,7 @@ window.addEventListener('load', async () => {
   const inputs = ['checkin','checkout','adults','children','breakfast','extrabed'];
   inputs.forEach(id => document.getElementById(id).addEventListener('change', updatePriceDisplay));
 
-  updateAdultsDropdown();   // initial call
+  updateAdultsDropdown();
   updatePriceDisplay();
 });
 </script>
