@@ -8,47 +8,21 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
  
-  <!-- 🔥 DIVINE SOTA ORANGE THEME CONFIG -->
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: {
-              50: '#FFF1E6',
-              600: '#FF6200',
-              700: '#E54F00',
-              800: '#C93F00'
-            }
-          }
-        }
-      }
+      theme: { extend: { colors: { primary: {50:'#FFF1E6',600:'#FF6200',700:'#E54F00',800:'#C93F00'} } } }
     }
   </script>
   <style>
-    .hero-bg {
-      background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-                        url('https://i.ibb.co/0p3z3PH2/Perspective-View-Raama-The-Hotel-6.jpg');
-      background-size: cover;
-      background-position: center;
-    }
+    .hero-bg { background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://i.ibb.co/0p3z3PH2/Perspective-View-Raama-The-Hotel-6.jpg'); background-size: cover; background-position: center; }
     .nav-link { transition: all 0.3s; }
     .nav-link:hover { color: #E54F00; transform: translateY(-2px); }
     .room-card img { transition: transform 0.4s; }
     .room-card:hover img { transform: scale(1.08); }
     .logo-img { height: 68px; width: auto; }
 
-    /* SOTA TITLE CARD - EXACT REPLICA OF YOUR IMAGE */
-    .title-card {
-      background: linear-gradient(90deg, #fbbf24, #f59e0b);
-      border: 12px solid #fff;
-      box-shadow: 0 0 40px rgba(249, 115, 22, 0.4);
-      animation: fadeInScale 1.5s ease-out forwards;
-    }
-    @keyframes fadeInScale {
-      0% { opacity: 0; transform: scale(0.92); }
-      100% { opacity: 1; transform: scale(1); }
-    }
+    /* SOTA TITLE CARD */
+    .title-card { background: linear-gradient(90deg, #fbbf24, #f59e0b); border: 12px solid #fff; box-shadow: 0 0 40px rgba(249,115,22,0.4); }
 
     /* SCROLLING TESTIMONIALS */
     .marquee { overflow: hidden; white-space: nowrap; }
@@ -63,9 +37,7 @@
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center gap-3">
         <img src="https://i.ibb.co/rf2b2tbc/Ramma-The-Hotel-Logo1.jpg" alt="Ramma TheHotel" class="logo-img">
-        <div>
-          <p class="text-xs text-primary-600 -mt-1">Mount Abu • 200m from Nakki Lake</p>
-        </div>
+        <div><p class="text-xs text-primary-600 -mt-1">Mount Abu • 200m from Nakki Lake</p></div>
       </div>
       <div class="hidden md:flex gap-8 text-lg">
         <a href="#rooms" class="nav-link text-gray-700 hover:text-primary-700">Rooms</a>
@@ -73,27 +45,30 @@
         <a href="#amenities" class="nav-link text-gray-700 hover:text-primary-700">Amenities</a>
         <a href="#location" class="nav-link text-gray-700 hover:text-primary-700">Location</a>
       </div>
-      <a href="https://wa.me/919460500789" target="_blank"
-         class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-full flex items-center gap-2 font-semibold">
-        <i class="fa-brands fa-whatsapp text-2xl"></i>
-        <span>WhatsApp Now</span>
+      <a href="https://wa.me/919460500789" target="_blank" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-full flex items-center gap-2 font-semibold">
+        <i class="fa-brands fa-whatsapp text-2xl"></i><span>WhatsApp Now</span>
       </a>
     </div>
   </nav>
 
-  <!-- EXACT TITLE CARD REPLICA FROM YOUR IMAGE -->
+  <!-- SOTA TITLE CARD -->
   <div class="title-card py-14 text-center">
     <div class="max-w-5xl mx-auto px-6">
       <h1 class="text-7xl md:text-8xl font-bold text-white tracking-widest">RAMMA</h1>
-     
+      <div class="flex justify-center items-center my-8">
+        <svg width="110" height="130" viewBox="0 0 110 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 20 L28 110 L82 110 L82 20" stroke="#fff" stroke-width="14" stroke-linejoin="round"/>
+          <path d="M42 20 L42 110" stroke="#fff" stroke-width="8" stroke-linejoin="round"/>
+          <path d="M68 20 L68 110" stroke="#fff" stroke-width="8" stroke-linejoin="round"/>
+          <ellipse cx="55" cy="78" rx="13" ry="18" fill="#dc2626"/>
+        </svg>
+      </div>
       <h2 class="text-5xl md:text-6xl font-semibold text-white tracking-widest">THEHOTEL</h2>
-      
       <div class="flex items-center justify-center gap-6 mt-10 mb-4">
         <div class="h-px w-20 bg-white"></div>
         <span class="text-white text-4xl">✦</span>
         <div class="h-px w-20 bg-white"></div>
       </div>
-      
       <p class="text-4xl font-medium text-white tracking-[8px]">MOUNT ABU</p>
     </div>
   </div>
