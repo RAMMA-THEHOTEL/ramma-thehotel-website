@@ -588,77 +588,29 @@
     200 meters from Nakki Lake, Mount Abu, Rajasthan
   </footer>
 
-  <script>
-    console.log('%c✅ Ramma TheHotel — Upgraded for Solo Backpackers LIVE!', 'color: #FF6200; font-size: 18px');
-  </script>
-  <script>
-  // ==================== CENTRALIZED PRICING - 3 CATEGORIES ONLY ====================
-  // ONLY CHANGE THESE 3 NUMBERS FROM NOW ON
-  const categoryPrices = {
-    standard: 1250,   // All Standard Non-AC rooms
-    deluxe:   1550,   // All Deluxe AC rooms
-    family:   2250    // All Family Room (4 persons) AC
-  };
-  // ==============================================================================
-
-  function updateAllPrices() {
-    document.querySelectorAll('.room-card').forEach(card => {
-      const heading = card.querySelector('h3');
-      if (!heading) return;
-
-      const roomText = heading.textContent.trim();
-
-      let price = 0;
-      if (roomText.includes("Standard Non-AC") || roomText.includes("Standard Non AC")) {
-        price = categoryPrices.standard;
-      } else if (roomText.includes("Deluxe AC")) {
-        price = categoryPrices.deluxe;
-      } else if (roomText.includes("Family Room") || roomText.includes("Family")) {
-        price = categoryPrices.family;
-      }
-
-      if (price > 0) {
-        // Find ANY price paragraph inside this card (more flexible)
-        const priceEl = card.querySelector('p.text-primary-600');
-        
-        if (priceEl) {
-          priceEl.innerHTML = `₹${price} <span class="text-sm font-normal text-gray-500">/ night</span>`;
-        }
-      }
-    });
-  }
-
-  // Run automatically
-  window.addEventListener('load', updateAllPrices);
-</script>
-
-  <script>
+<script>
 // Your published CSV link
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS6uh3gxVxtx9JUIuc4wAuhEyQfTw0pza0TLFw6r5w_q9Kyun-_440-biUzhjkWVOLjhVzgWWw4sGFc/pub?gid=1926317872&single=true&output=csv";
 
 let pricingData = [];
 
-// Load pricing data from your Google Sheet
+// Load pricing data
 async function loadPricingData() {
   try {
     const response = await fetch(CSV_URL);
     const text = await response.text();
     const rows = text.split('\n').map(row => row.split(','));
     
-    // Skip header, map data
     pricingData = rows.slice(1).map(row => ({
       date: row[0].trim(),
-      dayType: row[1].trim(),
       standard: parseInt(row[2]) || 0,
       deluxe: parseInt(row[3]) || 0,
       family: parseInt(row[4]) || 0
     })).filter(row => row.date);
-  } catch(e) {
-    console.log("Pricing data loaded");
-  }
+  } catch(e) {}
 }
 
-// Find price for a specific date
+// Get price for a date
 function getPriceForDate(dateStr, roomType) {
   const row = pricingData.find(r => r.date === dateStr);
   if (!row) return 0;
@@ -669,51 +621,80 @@ function getPriceForDate(dateStr, roomType) {
   return 0;
 }
 
-// Main booking handler
-function handleWhatsAppBooking() {
-  const checkin = document.getElementById('checkin').value;
-  const checkout = document.getElementById('checkout').value;
-  const roomType = document.getElementById('roomType').value;
-  
-  if (!checkin || !checkout) {
-    alert("Please select check-in and check-out dates");
-    return;
-  }
-
-  // Calculate nights and total (simple version)
-  const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000*60*60*24));
-  const dailyPrice = getPriceForDate(checkin, roomType) || 1200; // fallback
-  const total = dailyPrice * nights;
-
-  const message = `Hello Ramma TheHotel!\n\nI want to book:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${nights}\nTotal: ₹${total}\n\nPlease confirm availability.`;
-
-  window.open(`https://wa.me/919460500789?text=${encodeURIComponent(message)}`, '_blank');
-}
-
-// Auto update price when dates or room change
+// Update price display
 function updatePriceDisplay() {
   const checkin = document.getElementById('checkin').value;
   const checkout = document.getElementById('checkout').value;
   const roomType = document.getElementById('roomType').value;
 
-  if (!checkin || !checkout) return;
+  const priceDisplay = document.getElementById('priceDisplay');
+  const totalDisplay = document.getElementById('totalDisplay');
 
-  const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000*60*60*24));
-  const dailyPrice = getPriceForDate(checkin, roomType) || 1200;
+  // Clear price until both dates are selected
+  if (!checkin || !checkout) {
+    priceDisplay.textContent = "Select dates to see price";
+    totalDisplay.textContent = "";
+    return;
+  }
 
-  document.getElementById('priceDisplay').textContent = `₹${dailyPrice} / night`;
-  document.getElementById('nightsCount').textContent = nights;
-  document.getElementById('totalDisplay').innerHTML = `Total for <span id="nightsCount">${nights}</span> nights: <strong>₹${dailyPrice * nights}</strong>`;
+  const checkinDate = new Date(checkin);
+  const checkoutDate = new Date(checkout);
+  let nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+
+  // Prevent negative or zero nights
+  if (nights < 1) {
+    priceDisplay.textContent = "Select valid dates";
+    totalDisplay.textContent = "";
+    return;
+  }
+
+  const dailyPrice = getPriceForDate(checkin, roomType) || 1200; // fallback only if no data
+
+  priceDisplay.innerHTML = `₹${dailyPrice} <span class="text-base font-normal">/ night</span>`;
+  totalDisplay.innerHTML = `Total for <strong>${nights}</strong> nights: <strong>₹${dailyPrice * nights}</strong>`;
 }
 
-// Load data and attach listeners
+// WhatsApp booking
+function handleWhatsAppBooking() {
+  const checkin = document.getElementById('checkin').value;
+  const checkout = document.getElementById('checkout').value;
+  const roomType = document.getElementById('roomType').value;
+
+  if (!checkin || !checkout) {
+    alert("Please select check-in and check-out dates");
+    return;
+  }
+
+  const checkinDate = new Date(checkin);
+  const checkoutDate = new Date(checkout);
+  let nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+
+  if (nights < 1) {
+    alert("Check-out date must be after check-in date");
+    return;
+  }
+
+  const dailyPrice = getPriceForDate(checkin, roomType) || 1200;
+  const total = dailyPrice * nights;
+
+  const message = `Hello Ramma TheHotel!\n\nI want to book:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${nights}\nTotal Amount: ₹${total}\n\nPlease confirm availability.`;
+
+  window.open(`https://wa.me/919460500789?text=${encodeURIComponent(message)}`, '_blank');
+}
+
+// Initialize
 window.addEventListener('load', async () => {
   await loadPricingData();
   
   const inputs = ['checkin', 'checkout', 'roomType'];
   inputs.forEach(id => {
-    document.getElementById(id).addEventListener('change', updatePriceDisplay);
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', updatePriceDisplay);
   });
+
+  // Initial state - no price shown
+  document.getElementById('priceDisplay').textContent = "Select dates to see price";
+  document.getElementById('totalDisplay').textContent = "";
 });
 </script>
   
