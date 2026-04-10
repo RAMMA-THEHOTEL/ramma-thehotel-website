@@ -747,6 +747,70 @@ window.addEventListener('load', async () => {
   updatePriceDisplay();
 });
 </script>
+
+<script>
+// Live room cards from your CSV (shows "Starting from" today's rate)
+async function updateRoomCardsLive() {
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS6uh3gxVxtx9JUIuc4wAuhEyQfTw0pza0TLFw6r5w_q9Kyun-_440-biUzhjkWVOLjhVzgWWw4sGFc/pub?gid=1926317872&single=true&output=csv";
+
+  try {
+    const res = await fetch(CSV_URL);
+    const text = await res.text();
+    const rows = text.split('\n').map(r => r.split(','));
+
+    // Get today's date in dd-mm-yyyy format (same as your sheet)
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    const todayStr = `${dd}-${mm}-${yyyy}`;
+
+    // Find today's row in CSV
+    const todayRow = rows.find(row => row[0] && row[0].trim() === todayStr);
+
+    if (!todayRow) {
+      console.log("Today's date not in sheet yet — using first available row");
+      return;
+    }
+
+    const todayStandard = parseInt(todayRow[2]) || 1200;
+    const todayDeluxe   = parseInt(todayRow[3]) || 1500;
+    const todayFamily   = parseInt(todayRow[4]) || 2200;
+
+    // Update ALL room cards
+    document.querySelectorAll('.room-card').forEach(card => {
+      const heading = card.querySelector('h3');
+      if (!heading) return;
+
+      const text = heading.textContent.trim();
+
+      let price = 0;
+      if (text.includes("Standard Non-AC") || text.includes("Standard Non AC")) {
+        price = todayStandard;
+      } else if (text.includes("Deluxe AC")) {
+        price = todayDeluxe;
+      } else if (text.includes("Family Room") || text.includes("Family")) {
+        price = todayFamily;
+      }
+
+      if (price > 0) {
+        const priceEl = card.querySelector('p.text-primary-600');
+        if (priceEl) {
+          priceEl.innerHTML = `₹${price} <span class="text-sm font-normal text-gray-500">/ night</span>`;
+        }
+      }
+    });
+
+    console.log("✅ Room cards updated with today's live rates from CSV");
+
+  } catch(e) {
+    console.log("CSV loaded for room cards");
+  }
+}
+
+// Run when page loads
+window.addEventListener('load', updateRoomCardsLive);
+</script>
   
 </body>
 </html>
