@@ -191,6 +191,99 @@
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white text-5xl animate-bounce-slow cursor-pointer">↓</div>
   </div>
 </section>
+  <!-- === SOTA BOOKING BAR - Live from Google Sheet === -->
+<section class="py-8 bg-white shadow-xl sticky top-0 z-40 border-b">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="bg-white rounded-3xl shadow-2xl p-5 md:p-6 flex flex-col md:flex-row items-center gap-4 md:gap-8">
+
+      <!-- Check-in -->
+      <div class="flex-1">
+        <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-IN</label>
+        <input type="date" id="checkin" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+      </div>
+
+      <!-- Check-out -->
+      <div class="flex-1">
+        <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-OUT</label>
+        <input type="date" id="checkout" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+      </div>
+
+      <!-- Nights + Room Type -->
+      <div class="flex-1">
+        <label class="text-xs font-semibold text-gray-500 block mb-1">ROOM TYPE</label>
+        <select id="roomType" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+          <option value="Standard">Standard Non-AC</option>
+          <option value="Deluxe">Deluxe AC</option>
+          <option value="Family">Family Room (4 persons) AC</option>
+        </select>
+      </div>
+
+      <!-- Live Price Display -->
+      <div class="flex-1 text-center">
+        <div class="text-xs font-semibold text-gray-500">PRICE FOR SELECTED DATES</div>
+        <div id="priceDisplay" class="text-3xl font-bold text-primary-600">₹1,200 / night</div>
+        <div id="totalDisplay" class="text-sm text-gray-600 mt-1">Total for <span id="nightsCount">0</span> nights: ₹0</div>
+      </div>
+
+      <!-- WhatsApp Button -->
+      <div>
+        <button onclick="handleWhatsAppBooking()" 
+                class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3 transition-all">
+          <i class="fa-brands fa-whatsapp text-3xl"></i>
+          Check Availability
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- === SOTA BOOKING BAR - Live from Google Sheet === -->
+<section class="py-8 bg-white shadow-xl sticky top-0 z-40 border-b">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="bg-white rounded-3xl shadow-2xl p-5 md:p-6 flex flex-col md:flex-row items-center gap-4 md:gap-8">
+
+      <!-- Check-in -->
+      <div class="flex-1">
+        <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-IN</label>
+        <input type="date" id="checkin" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+      </div>
+
+      <!-- Check-out -->
+      <div class="flex-1">
+        <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-OUT</label>
+        <input type="date" id="checkout" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+      </div>
+
+      <!-- Nights + Room Type -->
+      <div class="flex-1">
+        <label class="text-xs font-semibold text-gray-500 block mb-1">ROOM TYPE</label>
+        <select id="roomType" class="w-full text-lg border-0 focus:ring-0 bg-gray-50 rounded-2xl py-4 px-5">
+          <option value="Standard">Standard Non-AC</option>
+          <option value="Deluxe">Deluxe AC</option>
+          <option value="Family">Family Room (4 persons) AC</option>
+        </select>
+      </div>
+
+      <!-- Live Price Display -->
+      <div class="flex-1 text-center">
+        <div class="text-xs font-semibold text-gray-500">PRICE FOR SELECTED DATES</div>
+        <div id="priceDisplay" class="text-3xl font-bold text-primary-600">₹1,200 / night</div>
+        <div id="totalDisplay" class="text-sm text-gray-600 mt-1">Total for <span id="nightsCount">0</span> nights: ₹0</div>
+      </div>
+
+      <!-- WhatsApp Button -->
+      <div>
+        <button onclick="handleWhatsAppBooking()" 
+                class="bg-primary-600 hover:bg-primary-700 text-white px-10 py-6 rounded-3xl text-xl font-semibold flex items-center gap-3 transition-all">
+          <i class="fa-brands fa-whatsapp text-3xl"></i>
+          Check Availability
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+    
   <!-- WHY GUESTS LOVE US -->
   <section class="py-16 bg-primary-50">
     <div class="max-w-6xl mx-auto px-6">
@@ -582,5 +675,91 @@
   // Run automatically
   window.addEventListener('load', updateAllPrices);
 </script>
+
+  <script>
+// Your published CSV link
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS6uh3gxVxtx9JUIuc4wAuhEyQfTw0pza0TLFw6r5w_q9Kyun-_440-biUzhjkWVOLjhVzgWWw4sGFc/pub?gid=1926317872&single=true&output=csv";
+
+let pricingData = [];
+
+// Load pricing data from your Google Sheet
+async function loadPricingData() {
+  try {
+    const response = await fetch(CSV_URL);
+    const text = await response.text();
+    const rows = text.split('\n').map(row => row.split(','));
+    
+    // Skip header, map data
+    pricingData = rows.slice(1).map(row => ({
+      date: row[0].trim(),
+      dayType: row[1].trim(),
+      standard: parseInt(row[2]) || 0,
+      deluxe: parseInt(row[3]) || 0,
+      family: parseInt(row[4]) || 0
+    })).filter(row => row.date);
+  } catch(e) {
+    console.log("Pricing data loaded");
+  }
+}
+
+// Find price for a specific date
+function getPriceForDate(dateStr, roomType) {
+  const row = pricingData.find(r => r.date === dateStr);
+  if (!row) return 0;
+  
+  if (roomType === "Standard") return row.standard;
+  if (roomType === "Deluxe") return row.deluxe;
+  if (roomType === "Family") return row.family;
+  return 0;
+}
+
+// Main booking handler
+function handleWhatsAppBooking() {
+  const checkin = document.getElementById('checkin').value;
+  const checkout = document.getElementById('checkout').value;
+  const roomType = document.getElementById('roomType').value;
+  
+  if (!checkin || !checkout) {
+    alert("Please select check-in and check-out dates");
+    return;
+  }
+
+  // Calculate nights and total (simple version)
+  const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000*60*60*24));
+  const dailyPrice = getPriceForDate(checkin, roomType) || 1200; // fallback
+  const total = dailyPrice * nights;
+
+  const message = `Hello Ramma TheHotel!\n\nI want to book:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${nights}\nTotal: ₹${total}\n\nPlease confirm availability.`;
+
+  window.open(`https://wa.me/919460500789?text=${encodeURIComponent(message)}`, '_blank');
+}
+
+// Auto update price when dates or room change
+function updatePriceDisplay() {
+  const checkin = document.getElementById('checkin').value;
+  const checkout = document.getElementById('checkout').value;
+  const roomType = document.getElementById('roomType').value;
+
+  if (!checkin || !checkout) return;
+
+  const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000*60*60*24));
+  const dailyPrice = getPriceForDate(checkin, roomType) || 1200;
+
+  document.getElementById('priceDisplay').textContent = `₹${dailyPrice} / night`;
+  document.getElementById('nightsCount').textContent = nights;
+  document.getElementById('totalDisplay').innerHTML = `Total for <span id="nightsCount">${nights}</span> nights: <strong>₹${dailyPrice * nights}</strong>`;
+}
+
+// Load data and attach listeners
+window.addEventListener('load', async () => {
+  await loadPricingData();
+  
+  const inputs = ['checkin', 'checkout', 'roomType'];
+  inputs.forEach(id => {
+    document.getElementById(id).addEventListener('change', updatePriceDisplay);
+  });
+});
+</script>
+  
 </body>
 </html>
