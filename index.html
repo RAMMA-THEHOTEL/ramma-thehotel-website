@@ -17,7 +17,51 @@
     .nav-link { transition: all 0.3s; }
     .nav-link:hover { color: #E54F00; transform: translateY(-2px); }
     .room-card img { transition: transform 0.4s; }
-    .room-card:hover img { transform: scale(1.08); }
+    :root {
+  /* The Sacred DNA */
+  --sacred-orange: #FF8C00;      /* Sacred Devotion */
+  --antique-teak: #5D4037;       /* The Wood/Soul */
+  --stone-beige: #F9F7F2;        /* Mount Abu Stone */
+  --deep-charcoal: #1A1A1A;      /* Night Sky */
+  
+  /* Fonts */
+  --font-header: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--stone-beige);
+  color: var(--deep-charcoal);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}
+
+/* SOTA Header Typography */
+h1, h2, h3, .font-serif {
+  font-family: var(--font-header);
+  letter-spacing: -0.02em;
+}
+
+/* The Hanumanji-Etched Border Style */
+.sacred-border {
+  position: relative;
+  border: 2px solid var(--sacred-orange);
+  padding: 1rem;
+}
+
+/* Subtle Golden Hour Mesh Gradient Background */
+.bg-golden-hour {
+  background: radial-gradient(at 0% 0%, rgba(255, 140, 0, 0.15) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, rgba(93, 64, 55, 0.1) 0px, transparent 50%);
+}
+
+/* Room Card Glow Effect */
+.room-card:hover {
+  box-shadow: 0 20px 40px rgba(255, 140, 0, 0.1);
+  transform: translateY(-5px);
+  border-color: var(--sacred-orange);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
     .logo-img { height: 68px; width: auto; }
     .title-card { background: linear-gradient(90deg, #fbbf24, #f59e0b); border: 12px solid #fff; box-shadow: 0 0 40px rgba(249,115,22,0.4); }
     .marquee { overflow: hidden; white-space: nowrap; }
