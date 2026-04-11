@@ -89,6 +89,30 @@ h1, h2, h3, .font-serif {
   100% { transform: scale(1.15); }
 }
 .animate-kenburns { animation: kenburns 35s ease infinite alternate; }
+
+    // This adds a "Staggered Reveal" to your RAMMA THEHOTEL text
+window.addEventListener('load', () => {
+    const heroTitle = document.querySelector('h1');
+    const heroSub = document.querySelector('h2');
+    
+    // SOTA Move: Split the text and animate it
+    heroTitle.style.opacity = "1";
+    heroTitle.innerHTML = heroTitle.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+    
+    const letters = document.querySelectorAll('.letter');
+    letters.forEach((l, i) => {
+        l.style.display = "inline-block";
+        l.style.transform = "translateY(50px)";
+        l.style.opacity = "0";
+        l.style.transition = `all 0.8s cubic-bezier(0.2, 0.6, 0.2, 1) ${i * 0.05}s`;
+        
+        setTimeout(() => {
+            l.style.transform = "translateY(0)";
+            l.style.opacity = "1";
+        }, 100);
+    });
+});
+      
   </style>
 </head>
 <body class="font-sans">
@@ -191,7 +215,7 @@ h1, h2, h3, .font-serif {
   <!-- CLEAN NON-STICKY BOOKING BAR -->
   <section class="py-10 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-8">
+      <div class="bg-white/40 backdrop-blur-2xl border border-white/40 rounded-[40px] shadow-[0_32px_64px_-15px_rgba(0,0,0,0.2)] p-6 md:p-10 relative z-20 -mt-24">
         <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           <div>
             <label class="text-xs font-semibold text-gray-500 block mb-1">CHECK-IN</label>
