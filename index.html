@@ -12,11 +12,13 @@
       theme: { extend: { colors: { primary: {50:'#FFF1E6',600:'#FF6200',700:'#E54F00',800:'#C93F00'} } } }
     }
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <style>
     .hero-bg { background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://i.ibb.co/0p3z3PH2/Perspective-View-Raama-The-Hotel-6.jpg'); background-size: cover; background-position: center; }
     .nav-link { transition: all 0.3s; }
     .nav-link:hover { color: #E54F00; transform: translateY(-2px); }
-    .room-card img { transition: transform 0.4s; }
+    
     :root {
   /* The Sacred DNA */
   --sacred-orange: #FF8C00;      /* Sacred Devotion */
@@ -56,11 +58,29 @@ h1, h2, h3, .font-serif {
 }
 
 /* Room Card Glow Effect */
+.room-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(93, 64, 55, 0.1); /* Subtle Teak border */
+  border-radius: 40px;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  opacity: 0; /* Start invisible for the GSAP reveal */
+  transform: translateY(30px);
+}
+
 .room-card:hover {
-  box-shadow: 0 20px 40px rgba(255, 140, 0, 0.1);
-  transform: translateY(-5px);
   border-color: var(--sacred-orange);
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 30px 60px -15px rgba(93, 64, 55, 0.15);
+  transform: translateY(-10px) scale(1.02);
+}
+
+.room-card img {
+  transition: transform 0.8s ease;
+}
+
+.room-card:hover img {
+  transform: scale(1.1); /* Subtle zoom into the room on hover */
 }
     .logo-img { height: 68px; width: auto; }
     .title-card { background: linear-gradient(90deg, #fbbf24, #f59e0b); border: 12px solid #fff; box-shadow: 0 0 40px rgba(249,115,22,0.4); }
@@ -860,6 +880,21 @@ function toggleMobileMenu() {
   menu.classList.toggle('hidden');
 }
 </script>
+
+  gsap.registerPlugin(ScrollTrigger);
+
+// This makes the room cards "stagger" in as you scroll down
+gsap.to(".room-card", {
+  scrollTrigger: {
+    trigger: "#rooms", /* Make sure your rooms section has id="rooms" */
+    start: "top 80%",
+  },
+  opacity: 1,
+  y: 0,
+  duration: 1,
+  stagger: 0.2, /* Each card waits 0.2s after the previous one */
+  ease: "power4.out"
+});
   
 </body>
 </html>
