@@ -113,37 +113,17 @@ window.addEventListener('load', () => {
     });
 });
 
-      /* Force Mobile Date Pickers to show text */
-input[type="date"] {
-    position: relative;
-    min-height: 45px; /* Ensures the box doesn't shrink */
-}
+<input type="text" 
+       placeholder="Check-In" 
+       onfocus="(this.type='date')" 
+       onblur="if(!this.value)this.type='text'" 
+       class="your-input-classes">
 
-/* This creates a "fake" placeholder that disappears only when a date is picked */
-input[type="date"]::before {
-    content: attr(placeholder);
-    position: absolute;
-    color: #9ca3af; /* Light gray like desktop */
-    left: 12px;
-}
-
-input[type="date"]:focus::before,
-input[type="date"]:valid::before {
-    content: ""; /* Removes placeholder when user starts picking */
-}
-
-/* Target for Webkit (Chrome/Safari on Mobile) */
-input[type="date"]::-webkit-datetime-edit {
-    display: flex !important;
-}
-
-/* Ensure the text is dark enough to read once selected */
-input[type="date"]::-webkit-datetime-edit-text,
-input[type="date"]::-webkit-datetime-edit-month-field,
-input[type="date"]::-webkit-datetime-edit-day-field,
-input[type="date"]::-webkit-datetime-edit-year-field {
-    color: #5D4037; /* Our Antique Teak color */
-}
+<input type="text" 
+       placeholder="Check-Out" 
+       onfocus="(this.type='date')" 
+       onblur="if(!this.value)this.type='text'" 
+       class="your-input-classes">
       
   </style>
 </head>
