@@ -12,6 +12,35 @@
       theme: { extend: { colors: { primary: {50:'#FFF1E6',600:'#FF6200',700:'#E54F00',800:'#C93F00'} } } }
     }
   </script>
+
+  <script>
+  // SOTA Tagline Engine
+  const taglines = [
+    "Rooftop Vibes & Quiet Evenings",
+    "A Home for Every Soul",
+    "Sacred Devotion, Modern Comfort",
+    "Your Calm Mount Abu Stay"
+  ];
+  let i = 0;
+  function updateTagline() {
+    const el = document.getElementById('tagline');
+    el.style.opacity = 0;
+    setTimeout(() => {
+      el.textContent = taglines[i];
+      el.style.color = i % 2 === 0 ? "#5D4037" : "#FF8C00"; // Alternates Teak and Orange
+      el.style.opacity = 1;
+      i = (i + 1) % taglines.length;
+    }, 500);
+  }
+  setInterval(updateTagline, 4000);
+  updateTagline();
+
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('hidden');
+  }
+</script>
+  
   <style>
     .hero-bg { background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://i.ibb.co/0p3z3PH2/Perspective-View-Raama-The-Hotel-6.jpg'); background-size: cover; background-position: center; }
     .nav-link { transition: all 0.3s; }
@@ -151,37 +180,38 @@ window.addEventListener('load', () => {
 <body class="font-sans">
 
 <!-- SOTA NAVBAR - Fixed Mobile Cropping -->
-<nav class="bg-white shadow-md">
-  <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+<nav class="bg-[#FCFAF8] shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
     
-    <!-- Logo -->
-    <img src="https://i.ibb.co/rf2b2tbc/Ramma-The-Hotel-Logo1.jpg" alt="Ramma TheHotel" class="logo-img h-12">
-
-    <!-- Animated Tagline - More height on mobile -->
-    <div class="flex-1 max-w-[260px] md:max-w-[340px] mx-4 text-center">
-      <div id="tagline" class="text-sm md:text-base font-medium text-gray-700 h-10 md:h-6 flex items-center justify-center leading-tight overflow-hidden"></div>
+    <div class="relative group">
+      <div class="absolute inset-0 bg-[#FF8C00] rounded-full blur-md opacity-20 group-hover:opacity-40 transition-opacity"></div>
+      <img src="https://i.ibb.co/rf2b2tbc/Ramma-The-Hotel-Logo1.jpg" 
+           alt="Ramma TheHotel" 
+           class="relative h-14 w-14 rounded-full object-cover border-2 border-white shadow-[0_0_15px_rgba(255,140,0,0.4)]">
     </div>
 
-    <!-- Desktop Navigation -->
-    <div class="hidden md:flex gap-8 text-lg">
-      <a href="#rooms" class="nav-link text-gray-700 hover:text-primary-700">Rooms</a>
-      <a href="#gallery" class="nav-link text-gray-700 hover:text-primary-700">Gallery</a>
-      <a href="#amenities" class="nav-link text-gray-700 hover:text-primary-700">Amenities</a>
-      <a href="#location" class="nav-link text-gray-700 hover:text-primary-700">Location</a>
+    <div class="flex-1 max-w-[280px] md:max-w-[400px] mx-4 text-center">
+      <div id="tagline" class="text-sm md:text-lg font-serif italic tracking-wide text-[#5D4037] h-10 flex items-center justify-center leading-tight">
+        </div>
     </div>
 
-    <!-- Mobile Hamburger -->
-    <button class="md:hidden text-3xl text-gray-700" onclick="toggleMobileMenu()">
-      <i class="fa-solid fa-bars"></i>
+    <div class="hidden md:flex gap-10 text-sm font-bold uppercase tracking-[0.2em]">
+      <a href="#rooms" class="text-[#5D4037] hover:text-[#FF8C00] transition-colors">Rooms</a>
+      <a href="#gallery" class="text-[#5D4037] hover:text-[#FF8C00] transition-colors">Gallery</a>
+      <a href="#amenities" class="text-[#5D4037] hover:text-[#FF8C00] transition-colors">Amenities</a>
+      <a href="#location" class="text-[#5D4037] hover:text-[#FF8C00] transition-colors">Location</a>
+    </div>
+
+    <button class="md:hidden text-[#5D4037]" onclick="toggleMobileMenu()">
+      <i class="fa-solid fa-bars-staggered text-2xl"></i>
     </button>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobileMenu" class="hidden md:hidden bg-white border-t px-6 py-4">
-    <a href="#rooms" class="block py-3 text-lg">Rooms</a>
-    <a href="#gallery" class="block py-3 text-lg">Gallery</a>
-    <a href="#amenities" class="block py-3 text-lg">Amenities</a>
-    <a href="#location" class="block py-3 text-lg">Location</a>
+  <div id="mobileMenu" class="hidden md:hidden bg-[#FCFAF8] border-t border-[#FF8C00]/10 px-6 py-6 space-y-4 shadow-inner">
+    <a href="#rooms" class="block text-lg font-bold text-[#5D4037]" onclick="toggleMobileMenu()">Rooms</a>
+    <a href="#gallery" class="block text-lg font-bold text-[#5D4037]" onclick="toggleMobileMenu()">Gallery</a>
+    <a href="#amenities" class="block text-lg font-bold text-[#5D4037]" onclick="toggleMobileMenu()">Amenities</a>
+    <a href="#location" class="block text-lg font-bold text-[#5D4037]" onclick="toggleMobileMenu()">Location</a>
   </div>
 </nav>
 
