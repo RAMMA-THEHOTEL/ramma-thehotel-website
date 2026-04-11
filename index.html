@@ -855,9 +855,9 @@ function toggleMobileMenu() {
 
     } catch (err) { console.error("CSV Load Error:", err); }
 })();
-</script>
 
-  <a href="https://wa.me/919460500789?text=Namaste!%20I%20am%20interested%20in%20booking%20a%20stay%20at%20RAMMA%20THEHOTEL." 
+</script>
+        <a href="https://wa.me/91XXXXXXXXXX?text=Namaste!%20I%20am%20interested%20in%20booking%20a%20stay%20at%20RAMMA%20THEHOTEL." 
    class="ramma-whatsapp-float" 
    target="_blank" 
    rel="noopener noreferrer">
@@ -867,58 +867,60 @@ function toggleMobileMenu() {
 <style>
     .ramma-whatsapp-float {
         position: fixed;
-        width: 65px;
-        height: 65px;
+        width: 60px;
+        height: 60px;
         bottom: 30px;
         right: 30px;
-        background-color: #FF8C00; /* Sacred Orange */
+        background-color: #25D366; /* Official WhatsApp Green */
         color: #FFF;
         border-radius: 50px;
         text-align: center;
-        font-size: 35px;
-        box-shadow: 0 10px 25px rgba(255, 140, 0, 0.3);
+        font-size: 32px;
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
         z-index: 1000;
         display: flex;
         align-items: center;
         justify-content: center;
         text-decoration: none;
         transition: all 0.3s ease;
-        animation: ramma-pulse 2s infinite;
+        /* Keeping that smooth heartbeat animation */
+        animation: whatsapp-glow 2.5s infinite;
     }
 
     .ramma-whatsapp-float:hover {
-        transform: scale(1.1);
-        background-color: #5D4037; /* Antique Teak on hover */
-        box-shadow: 0 15px 30px rgba(93, 64, 55, 0.4);
+        transform: scale(1.1) rotate(5deg);
+        background-color: #128C7E; /* Darker WhatsApp Teal on hover */
+        box-shadow: 0 10px 25px rgba(18, 140, 126, 0.4);
     }
 
-    /* The Pulse & Float Animation */
-    @keyframes ramma-pulse {
+    /* Subtle Heartbeat & Glow */
+    @keyframes whatsapp-glow {
         0% {
-            transform: translateY(0) scale(1);
-            box-shadow: 0 10px 25px rgba(255, 140, 0, 0.3);
+            transform: scale(1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
         }
         50% {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 20px 35px rgba(255, 140, 0, 0.5);
+            transform: scale(1.08);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
         }
         100% {
-            transform: translateY(0) scale(1);
-            box-shadow: 0 10px 25px rgba(255, 140, 0, 0.3);
+            transform: scale(1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
         }
     }
 
-    /* Mobile Adjustment */
+    /* Mobile Fit */
     @media screen and (max-width: 768px) {
         .ramma-whatsapp-float {
             width: 55px;
             height: 55px;
             bottom: 20px;
             right: 20px;
-            font-size: 30px;
+            font-size: 28px;
         }
     }
 </style>
+ 
 
 </body>
 </html>
