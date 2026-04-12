@@ -660,9 +660,17 @@ function updatePriceDisplay() {
   const checkout = document.getElementById('checkout').value;
   const roomType = document.getElementById('roomType').value;
 
-  // Show readable date below picker
-  document.getElementById('checkinLabel').textContent = checkin ? checkin.split('-').reverse().join('-') : "";
-  document.getElementById('checkoutLabel').textContent = checkout ? checkout.split('-').reverse().join('-') : "";
+  // --- Soulful Date Formatter ---
+  const months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+  const formatSoul = (d) => {
+    if(!d) return "";
+    const [y, m, day] = d.split('-');
+    return `${day} ${months[parseInt(m) - 1]} ${y}`;
+  };
+
+  document.getElementById('checkinLabel').textContent = formatSoul(checkin);
+  document.getElementById('checkoutLabel').textContent = formatSoul(checkout);
+  // ------------------------------
 
   const priceDisplay = document.getElementById('priceDisplay');
   const totalDisplay = document.getElementById('totalDisplay');
