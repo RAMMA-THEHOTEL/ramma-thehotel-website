@@ -278,69 +278,68 @@ window.addEventListener('load', () => {
 
   <!-- CLEAN NON-STICKY BOOKING BAR -->
 <section class="py-12 bg-transparent relative z-30">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="bg-black/20 backdrop-blur-lg border border-white/20 rounded-[40px] shadow-[0_40px_100px_-15px_rgba(0,0,0,0.5)] p-8 md:p-12 -mt-32">
+    <div class="max-w-5xl mx-auto px-6"> <div class="bg-gradient-to-b from-[#F5F5F5] to-white border border-[#5D4037]/10 rounded-[40px] shadow-[0_30px_70px_-15px_rgba(93,64,55,0.15)] p-6 md:p-10 -mt-32">
             
-            <h3 class="font-serif italic text-3xl text-white mb-8 text-center md:text-left drop-shadow-md" style="font-family: 'Cormorant Garamond', serif;">
+            <h3 class="font-serif italic text-2xl text-[#5D4037] mb-8 text-center md:text-left" style="font-family: 'Cormorant Garamond', serif;">
                 Plan Your Heritage Stay
             </h3>
 
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-10">
-                <div class="relative border-b border-white/30 focus-within:border-[#FF8C00] transition-all">
-                    <label class="text-[10px] tracking-[0.2em] font-bold text-amber-200 uppercase">Check-In</label>
-                    <input type="date" id="checkin" class="w-full bg-transparent py-3 text-lg focus:outline-none text-white font-medium appearance-none" required>
-                    <div id="checkinLabel" class="text-[11px] text-[#FF8C00] font-bold mt-1 h-4"></div>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+                <div class="relative border-b border-[#5D4037]/20 focus-within:border-[#FF8C00] transition-all">
+                    <label class="text-[10px] tracking-[0.2em] font-bold text-[#C5A059] uppercase">Check-In</label>
+                    <input type="date" id="checkin" class="w-full bg-transparent py-2 text-base focus:outline-none text-[#5D4037] font-medium appearance-none" required>
+                    <div id="checkinLabel" class="text-[10px] text-[#FF8C00] font-bold h-4"></div>
                 </div>
 
-                <div class="relative border-b border-white/30 focus-within:border-[#FF8C00] transition-all">
-                    <label class="text-[10px] tracking-[0.2em] font-bold text-amber-200 uppercase">Check-Out</label>
-                    <input type="date" id="checkout" class="w-full bg-transparent py-3 text-lg focus:outline-none text-white font-medium appearance-none" required>
-                    <div id="checkoutLabel" class="text-[11px] text-[#FF8C00] font-bold mt-1 h-4"></div>
+                <div class="relative border-b border-[#5D4037]/20 focus-within:border-[#FF8C00] transition-all">
+                    <label class="text-[10px] tracking-[0.2em] font-bold text-[#C5A059] uppercase">Check-Out</label>
+                    <input type="date" id="checkout" class="w-full bg-transparent py-2 text-base focus:outline-none text-[#5D4037] font-medium appearance-none" required>
+                    <div id="checkoutLabel" class="text-[10px] text-[#FF8C00] font-bold h-4"></div>
                 </div>
 
-                <div class="relative border-b border-white/30 focus-within:border-[#FF8C00] transition-all">
-                    <label class="text-[10px] tracking-[0.2em] font-bold text-amber-200 uppercase">Room Soul</label>
-                    <select id="roomType" class="w-full bg-transparent py-3 text-lg focus:outline-none text-white font-medium appearance-none cursor-pointer">
-                        <option class="text-gray-900" value="Standard">Standard Non-AC</option>
-                        <option class="text-gray-900" value="Deluxe">Deluxe AC</option>
-                        <option class="text-gray-900" value="Family">Family Room (4 Pax)</option>
+                <div class="relative border-b border-[#5D4037]/20 focus-within:border-[#FF8C00] transition-all">
+                    <label class="text-[10px] tracking-[0.2em] font-bold text-[#C5A059] uppercase">Room Soul</label>
+                    <select id="roomType" class="w-full bg-transparent py-2 text-base focus:outline-none text-[#5D4037] appearance-none cursor-pointer">
+                        <option value="Standard">Standard Non-AC</option>
+                        <option value="Deluxe">Deluxe AC</option>
+                        <option value="Family">Family Room (4 Pax)</option>
                     </select>
                 </div>
 
-                <div class="relative border-b border-white/30 focus-within:border-[#FF8C00] transition-all">
-                    <label class="text-[10px] tracking-[0.2em] font-bold text-amber-200 uppercase">Adults</label>
-                    <select id="adults" class="w-full bg-transparent py-3 text-lg focus:outline-none text-white font-medium appearance-none"></select>
+                <div class="relative border-b border-[#5D4037]/20 focus-within:border-[#FF8C00] transition-all">
+                    <label class="text-[10px] tracking-[0.2em] font-bold text-[#C5A059] uppercase">Adults</label>
+                    <select id="adults" class="w-full bg-transparent py-2 text-base focus:outline-none text-[#5D4037] appearance-none"></select>
                 </div>
 
-                <div class="relative border-b border-white/30 focus-within:border-[#FF8C00] transition-all">
-                    <label class="text-[10px] tracking-[0.2em] font-bold text-amber-200 uppercase">Children</label>
-                    <select id="children" class="w-full bg-transparent py-3 text-lg focus:outline-none text-white font-medium appearance-none">
-                        <option class="text-gray-900" value="0">0 Kids</option>
-                        <option class="text-gray-900" value="1">1 Kid</option>
-                        <option class="text-gray-900" value="2">2 Kids</option>
+                <div class="relative border-b border-[#5D4037]/20 focus-within:border-[#FF8C00] transition-all">
+                    <label class="text-[10px] tracking-[0.2em] font-bold text-[#C5A059] uppercase">Children</label>
+                    <select id="children" class="w-full bg-transparent py-2 text-base focus:outline-none text-[#5D4037] appearance-none">
+                        <option value="0">0 Kids</option>
+                        <option value="1">1 Kid</option>
+                        <option value="2">2 Kids</option>
                     </select>
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8 pt-8 border-t border-white/10">
-                <div class="flex flex-wrap gap-8">
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <input type="checkbox" id="breakfast" class="w-5 h-5 rounded border-white/40 bg-white/20 text-[#FF8C00] focus:ring-[#FF8C00]">
-                        <span class="text-sm font-medium text-white group-hover:text-[#FF8C00]">Breakfast (₹200/p)</span>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 pt-6 border-t border-[#5D4037]/5">
+                <div class="flex flex-wrap gap-6">
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                        <input type="checkbox" id="breakfast" class="w-4 h-4 rounded border-[#5D4037]/20 text-[#FF8C00] focus:ring-[#FF8C00]">
+                        <span class="text-[13px] font-medium text-[#5D4037]/70 group-hover:text-[#5D4037]">Breakfast Included</span>
                     </label>
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <input type="checkbox" id="extrabed" class="w-5 h-5 rounded border-white/40 bg-white/20 text-[#FF8C00] focus:ring-[#FF8C00]">
-                        <span class="text-sm font-medium text-white group-hover:text-[#FF8C00]">Extra Bed (₹400)</span>
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                        <input type="checkbox" id="extrabed" class="w-4 h-4 rounded border-[#5D4037]/20 text-[#FF8C00] focus:ring-[#FF8C00]">
+                        <span class="text-[13px] font-medium text-[#5D4037]/70 group-hover:text-[#5D4037]">Extra Bed</span>
                     </label>
                 </div>
 
-                <div class="flex items-center gap-8">
+                <div class="flex items-center gap-6">
                     <div class="text-right">
-                        <div id="priceDisplay" class="text-4xl font-serif italic text-[#FF8C00] drop-shadow-md">Select dates</div>
-                        <div id="totalDisplay" class="text-[11px] uppercase tracking-widest text-white/80 mt-1 font-bold"></div>
+                        <div id="priceDisplay" class="text-3xl font-serif italic text-[#FF8C00]">₹---</div>
+                        <div id="totalDisplay" class="text-[9px] uppercase tracking-widest text-[#5D4037]/50 mt-1"></div>
                     </div>
-                    <button onclick="handleWhatsAppBooking()" class="bg-[#FF8C00] text-white hover:bg-white hover:text-[#5D4037] px-12 py-6 rounded-full text-xl font-bold flex items-center gap-3 transition-all shadow-[0_20px_40px_-10px_rgba(255,140,0,0.5)]">
-                        <i class="fa-brands fa-whatsapp text-3xl"></i>
+                    <button onclick="handleWhatsAppBooking()" class="bg-[#FF8C00] text-white hover:bg-[#5D4037] px-8 py-4 rounded-full text-lg font-bold flex items-center gap-3 transition-all shadow-lg shadow-[#FF8C00]/20">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
                         Check My Dates
                     </button>
                 </div>
