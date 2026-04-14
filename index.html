@@ -760,12 +760,14 @@ function handleWhatsAppBooking() {
   if (!checkin || !checkout) return alert("Please select dates");
 
   const result = calculateTotal(checkin, checkout, roomType);
-  let total = result.total;
-  if (document.getElementById('breakfast').checked) total += 200 * (parseInt(adults) + parseInt(children));
-  if (document.getElementById('extrabed').checked) total += 400;
+  
+  // We grab the exact text that is already calculated and shown on your card
+  const finalTotalText = document.getElementById('totalDisplay').innerText; 
+  // This will extract just the number (e.g., "38000") from the "TOTAL FOR 10 NIGHTS... ₹38000" text
+  const finalTotal = finalTotalText.split('₹')[1] || "---";
 
-  const message = `Hello Ramma TheHotel!\n\nBooking Request:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${result.nights}\nAdults: ${adults} | Kids: ${children}\nBreakfast: ${breakfast}\nExtra Bed: ${extrabed}\nTotal: ₹${total}\n\nPlease confirm availability.`;
-
+  const message = `Hello Ramma TheHotel!\n\nBooking Request:\nRoom: ${roomType}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nNights: ${result.nights}\nAdults: ${adults} | Kids: ${children}\nBreakfast: ${breakfast}\nExtra Bed: ${extrabed}\nTotal: ₹${finalTotal}\n\nPlease confirm availability.`;
+  
   window.open(`https://wa.me/919460500789?text=${encodeURIComponent(message)}`, '_blank');
 }
 
